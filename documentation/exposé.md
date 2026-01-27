@@ -55,9 +55,9 @@ Das System generiert eine `ranking.json` (oder strukturierte Konsolenausgabe), d
 
 ## 4. Technische Architektur und Klassendesign
 
-Die Architektur ist bewusst schlank gehalten, trennt aber sauber zwischen **Daten** (Models), **Logik** (Services) und **Speicherung** (Data Access). Dies gewährleistet Übersichtlichkeit und Testbarkeit.
+Die Architektur ist bewusst schlank gehalten, trennt aber sauber zwischen **Daten**, **Logik** und **Speicherung**. Dies gewährleistet Übersichtlichkeit und Testbarkeit.
 
-### 4.1 Datenmodelle (Models)
+### 4.1 Datenmodelle
 Diese Klassen repräsentieren die Objekte des Spiels. Sie enthalten keine komplexe Logik, sondern nur Daten.
 
 * **`User`**: Repräsentiert einen Teilnehmer mit Name, ID, seinem aktuellen Punktestand und dem gewonnenen Preisgeld.
@@ -66,7 +66,7 @@ Diese Klassen repräsentieren die Objekte des Spiels. Sie enthalten keine komple
 * **`BingoCard`**: Repräsentiert das 5x5-Feld eines Users. Sie speichert, welche der 25 Felder bereits "aktiviert" (erfüllt) wurden.
 * **`BingoEvent`**: Definition eines Ereignisses (z. B. "Rote Karte"). Dient als Referenzkatalog.
 
-### 4.2 Logik-Kern (Services)
+### 4.2 Logik
 Hier findet die eigentliche Berechnung statt. Die Logik wird in überschaubare Manager aufgeteilt.
 
 * **`DataManager`**: 
@@ -84,7 +84,7 @@ Hier findet die eigentliche Berechnung statt. Die Logik wird in überschaubare M
     * Verwaltet die Töpfe (1.800 € Gesamt).
     * Berechnet die Zwischengewinne für Gruppen-Cluster und verteilt Bingo-Prämien.
 
-### 4.3 Programmablauf (Der "Controller")
+### 4.3 Programmablauf
 Eine zentrale Klasse, der **`TournamentController`**, steuert den Ablauf ähnlich einem Dirigenten:
 
 1.  **Init:** Der `DataManager` lädt alle Daten in den Speicher.
