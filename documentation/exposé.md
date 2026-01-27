@@ -1,23 +1,103 @@
-# Projektüberblick
+# Projekt-Exposé: WM 2026 Prediction Engine & Bingo Backend
 
-Das Projekt beschreibt die Entwicklung eines automatisierten Tippspiel‑Systems zur Fußball‑Weltmeisterschaft 2026. Inhaltlich kombiniert es ein klassisches Ergebnis‑Tippspiel mit Sondertipps und einem ereignisbasierten Bingo‑System. Ziel ist es, ein fachlich realistisches System umzusetzen, das komplexe Regeln klar strukturiert abbildet und automatisiert auswertet.
+## 1. Einleitung und Motivation
+Die Fußball-Weltmeisterschaft 2026 ist ein globales Großereignis, das traditionell von Tippspielen begleitet wird. Dieses Projekt zielt darauf ab, die klassische Tipprunde durch eine innovative "Bingo-Komponente" und komplexe Zwischenwertungen zu erweitern.
 
-# Fachliche Anforderungen und Spiellogik
+**Neben der akademischen Zielsetzung ist geplant, dieses System tatsächlich produktiv für eine reale Tippgemeinschaft von ca. 200 Personen während der WM 2026 einzusetzen.**
 
-Das Tippspiel umfasst mehrere Bestandteile: die Tippabgabe aller Gruppenspiele, die Vorhersage der Gruppensieger, Tipps zu den erreichten KO‑Runden sowie Sondertipps wie Weltmeister und Torschützenkönig. Ergänzend dazu wird ein Bingo‑System integriert, bei dem vordefinierte Turnierereignisse auf individuellen Bingo‑Karten der Teilnehmer abgebildet werden. Sobald ein Ereignis im Turnier eintritt, gilt das entsprechende Feld als erfüllt. Linien und vollständige Bingos werden automatisch erkannt und sowohl für Sondergewinne als auch für die Gesamtwertung berücksichtigt.
+Das Ziel dieses Softwareprojekts ist die Entwicklung eines robusten **Backends**, das die Verwaltung der Teilnehmer, deren Tipps sowie die automatisierte Auswertung von Spielereignissen übernimmt. Im Gegensatz zu Standard-Lösungen stehen hier komplexe, benutzerdefinierte Regeln (z. B. Bingo-Events, gruppierte Zwischengewinne) im Vordergrund, die eine maßgeschneiderte Logik erfordern.
 
-# Objektorientierte Struktur des Systems
+## 2. Zielsetzung
+Das Hauptziel ist die Implementierung einer **Auswertungs-Logik (Calculation Engine)**, die:
+1.  Tipps und Bingo-Konfigurationen der Nutzer einliest.
+2.  Spielergebnisse und Ereignisse verarbeitet.
+3.  Ein detailliertes Ranking sowie Gewinnverteilungen basierend auf einem komplexen Regelwerk berechnet.
 
-Alle zentralen fachlichen Konzepte werden durch eigene Klassen repräsentiert. Dazu zählen unter anderem Teilnehmer, Tippabgaben, Spiele, Gruppen, KO‑Runden, Bingo‑Karten und Bingo‑Ereignisse. Unterschiedliche Tipparten werden getrennt modelliert, folgen jedoch einem einheitlichen Grundprinzip. Die Auswertung der Tipps und die Punkteberechnung erfolgen über dedizierte Service‑Klassen, die ausschließlich auf den Domänenobjekten arbeiten. Dadurch bleibt die Logik übersichtlich, erweiterbar und gut nachvollziehbar.
+### 2.1 Abgrenzung und Fokus
+Der Fokus der Entwicklung liegt auf der **Backend-Logik** und der **Datenverarbeitung**.
+* **Primär:** Verarbeitung von JSON-basierten Daten (Input/Output) zur Sicherstellung der Testbarkeit, Portabilität und einfachen Abgabe des Projekts.
+* **Sekundär (Ausbaustufe):** Entwicklung einer Web-Oberfläche und Anbindung an eine Azure SQL Datenbank (wird bei ausreichender Zeit umgesetzt).
 
-# Datenbasis und Verarbeitung
+---
 
-Die gesamte Datenverarbeitung basiert auf JSON‑Dateien. Alle Teilnehmer‑Tipps liegen in einem einheitlichen JSON‑Format vor und bilden die zentrale Schnittstelle des Systems. Die Erstellung dieser Dateien kann optional über eine lokale Weboberfläche erfolgen, die ausschließlich zur Dateneingabe dient und die Ergebnisse direkt im Projektverzeichnis speichert. Alternativ können die JSON‑Dateien auch manuell erstellt werden. Für Entwicklungs‑ und Testzwecke werden die Ausgaben einer Fußball‑API auf Basis der letzten Weltmeisterschaft verwendet, um reale Turnierdaten zu simulieren.
+## 3. Funktionale Anforderungen
 
-# Automatisierung und Erweiterbarkeit
+Das System muss folgende Kernfunktionen abbilden:
 
-Auf Grundlage der eingelesenen Spieldaten werden Punkte, Zwischenwertungen, Gesamtwertungen und Bingo‑Ereignisse automatisch berechnet. Die Logik ist dabei vollständig von technischen Details wie Dateizugriffen, API‑Anbindung oder Benachrichtigungen getrennt. Optional können wichtige Ereignisse, etwa Zwischenwertungen oder Bingo‑Erfolge, automatisiert über eine WhatsApp‑Schnittstelle kommuniziert werden. Durch den modularen Aufbau lässt sich das System problemlos erweitern, etwa für andere Turniere oder angepasste Regelwerke.
+### 3.1 Daten-Input (JSON-basiert)
+Das System muss zwei Arten von Eingabedateien verarbeiten können:
+* **User-Tipps:** Eine JSON-Struktur, die pro User alle 72 Gruppenspiele, Gruppensieger, KO-Runden-Picks, Sondertipps und das individuelle 5x5 Bingo-Feld enthält.
+* **Match-Data (Simuliert):** Eine JSON-Datei, die den aktuellen Turnierstatus abbildet (Ergebnisse, Torschützen, Karten, etc.). Diese Datei simuliert die Antwort der *API-Football*, um eine konsistente Testumgebung für die Abgabe zu gewährleisten.
 
-# UML-Klassendiagramm
+### 3.2 Die "Calculation Engine" (Kernlogik)
+Die Engine berechnet täglich den Punktestand neu.
 
-![alt text](image.png)
+**A. Klassische Tipp-Auswertung:**
+* Punktevergabe nach Ergebnis (3), Tordifferenz (2), Tendenz (1).
+* Validierung der KO-Phasen-Tipps (Punkte pro Runde, Team darf nur 1x pro Runde werten).
+* Sondertipps (Weltmeister, Torschützenkönig inkl. Tie-Breaker Regel "zuerst genannter Spieler").
+
+**B. Bingo-Logik:**
+* Überprüfung der 50 möglichen Ereignisse gegen die realen Match-Daten (z. B. "Rote Karte in Gruppe A").
+* Status-Update der 5x5 Matrix jedes Spielers (Mitte = Free).
+* Erkennung von Mustern: Einzelne Felder (3 Pkt), Linien (8 Pkt), Full House (20 Pkt).
+* Tracking der zeitlichen Abfolge für Geldgewinne (z. B. "Wer hat die *erste* Linie?").
+
+**C. Finanz-Logik & Zwischenwertungen:**
+* Berechnung der 6 Gruppen-Cluster (z. B. A+B) für die 300 € Zwischengewinne.
+* Verteilung der Bingo-Geldpreise (First Line, etc.) oder Fallback-Verteilung (Top 5 Plätze), falls kein Bingo erreicht wird.
+* Endabrechnung des 1.100 € Haupttopfes (Platz 1–10).
+
+### 3.3 Output
+Das System generiert eine `ranking.json` (oder strukturierte Konsolenausgabe), die das aktuelle Leaderboard, die Finanzstände und den Bingo-Fortschritt anzeigt.
+
+---
+
+## 4. Technische Architektur
+
+### 4.1 Tech-Stack
+* **Sprache:** C# / Java / Python (je nach Projektvorgabe).
+* **Datenformat:** JSON für Persistenz und Datenaustausch.
+* **Hosting (Optional):** Azure Students (App Service / SQL Database).
+
+### 4.2 Komponenten-Entwurf
+Das Backend folgt einem modularen Aufbau, um die Austauschbarkeit der Datenquellen zu gewährleisten:
+
+1.  **Data Provider Interface:**
+    * Abstrahiert den Zugriff auf Spieldaten.
+    * *Implementierung A (Test/Abgabe):* `JsonFileProvider` (liest lokale Mock-Daten).
+    * *Implementierung B (Live):* `ApiFootballProvider` (ruft externe REST-API ab).
+2.  **Model Layer:**
+    * Klassen für `User`, `Bet`, `Match`, `BingoCard`, `Event`.
+3.  **Service Layer:**
+    * `ScoringService`: Berechnet Punkte für Spielergebnisse.
+    * `BingoService`: Prüft Matrix-Zustände.
+    * `RankingService`: Aggregiert alle Punkte und wendet Tie-Breaker Regeln an.
+
+---
+
+## 5. Projektablauf & Meilensteine
+
+### Phase 1: Datenmodellierung & MVP (Pflichtteil)
+* Definition der JSON-Schemata für Tipps und Match-Daten.
+* Implementierung der Punkte-Logik (Gruppenphase & KO-System).
+* Implementierung der Bingo-Matrix-Auswertung.
+* **Ziel:** Erfolgreicher Run eines Test-Cases via Konsole mit JSON-Input.
+
+### Phase 2: Erweiterte Logik (Pflichtteil)
+* Implementierung der Geld-Gewinnverteilung (Zwischengewinne & Haupttopf).
+* Handling von Sonderfällen (z. B. Torschützenkönig-Gleichstand).
+* Simulation eines kompletten Turnierverlaufs durch Einspeisen verschiedener Tages-Dateien.
+
+### Phase 3: Cloud & UI (Kür/Optional)
+* Bereitstellung einer einfachen Web-Oberfläche zur Visualisierung der JSON-Daten.
+* Deployment auf Azure Students.
+* Anbindung der echten API-Football Schnittstelle für Live-Daten.
+
+---
+
+## 6. Teststrategie für die Abgabe
+Um die Korrektheit der komplexen Regeln zu beweisen, werden **Szenario-Dateien** erstellt:
+1.  `input_bets.json`: Enthält Test-User mit unterschiedlichen Tipp-Strategien.
+2.  `match_day_X.json`: Simuliert verschiedene Turnier-Tage (z. B. "Ende Gruppenphase", "Finale").
+3.  **Erwartetes Ergebnis:** Das System muss für diese Inputs deterministisch die korrekten Punkte und Geldbeträge ausgeben (Vergleich Soll/Ist).
