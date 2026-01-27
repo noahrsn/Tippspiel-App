@@ -53,26 +53,51 @@ Das System generiert eine `ranking.json` (oder strukturierte Konsolenausgabe), d
 
 ---
 
-## 4. Technische Architektur
+## 4. Technische Architektur und Klassendesign
 
-### 4.1 Tech-Stack
-* **Sprache:** C# / Java / Python (je nach Projektvorgabe).
-* **Datenformat:** JSON für Persistenz und Datenaustausch.
-* **Hosting (Optional):** Azure Students (App Service / SQL Database).
+Die Architektur ist bewusst schlank gehalten, trennt aber sauber zwischen **Daten** (Models), **Logik** (Services) und **Speicherung** (Data Access). Dies gewährleistet Übersichtlichkeit und Testbarkeit.
 
-### 4.2 Komponenten-Entwurf
-Das Backend folgt einem modularen Aufbau, um die Austauschbarkeit der Datenquellen zu gewährleisten:
+### 4.1 Datenmodelle (Models)
+Diese Klassen repräsentieren die Objekte des Spiels. Sie enthalten keine komplexe Logik, sondern nur Daten.
 
-1.  **Data Provider Interface:**
-    * Abstrahiert den Zugriff auf Spieldaten.
-    * *Implementierung A (Test/Abgabe):* `JsonFileProvider` (liest lokale Mock-Daten).
-    * *Implementierung B (Live):* `ApiFootballProvider` (ruft externe REST-API ab).
-2.  **Model Layer:**
-    * Klassen für `User`, `Bet`, `Match`, `BingoCard`, `Event`.
-3.  **Service Layer:**
-    * `ScoringService`: Berechnet Punkte für Spielergebnisse.
-    * `BingoService`: Prüft Matrix-Zustände.
-    * `RankingService`: Aggregiert alle Punkte und wendet Tie-Breaker Regeln an.
+* **`User`**: Repräsentiert einen Teilnehmer mit Name, ID, seinem aktuellen Punktestand und dem gewonnenen Preisgeld.
+* **`Match`**: Ein reales Spiel im Turnierplan. Enthält Daten wie `MatchID`, `TeamA`, `TeamB`, `KickoffTime` und nach Spielende das `MatchResult` (Tore, Karten, Statistiken).
+* **`Bet`**: Der Tipp eines Users für ein spezifisches Spiel (getipptes Ergebnis) oder eine Turnierphase (getippter Sieger).
+* **`BingoCard`**: Repräsentiert das 5x5-Feld eines Users. Sie speichert, welche der 25 Felder bereits "aktiviert" (erfüllt) wurden.
+* **`BingoEvent`**: Definition eines Ereignisses (z. B. "Rote Karte"). Dient als Referenzkatalog.
+
+### 4.2 Logik-Kern (Services)
+Hier findet die eigentliche Berechnung statt. Die Logik wird in überschaubare Manager aufgeteilt.
+
+* **`DataManager`**: 
+    * Zuständig für Input/Output.
+    * Lädt `users.json` (Tipps) und `matches.json` (Ergebnisse) beim Start.
+    * Speichert das Ranking am Ende wieder ab.
+* **`ScoringCalculator`**: 
+    * Die "Mathe-Klasse". Sie bekommt einen `Bet` und ein `Match` und gibt die Punkte zurück (0, 1, 2 oder 3).
+    * Berechnet auch Punkte für KO-Runden und Sondertipps.
+* **`BingoManager`**: 
+    * Prüft, ob Ereignisse im Turnier eingetreten sind.
+    * Aktualisiert die `BingoCard` der User.
+    * Erkennt Gewinnmuster (Reihen, Full House).
+* **`FinanceEngine`**: 
+    * Verwaltet die Töpfe (1.800 € Gesamt).
+    * Berechnet die Zwischengewinne für Gruppen-Cluster und verteilt Bingo-Prämien.
+
+### 4.3 Programmablauf (Der "Controller")
+Eine zentrale Klasse, der **`TournamentController`**, steuert den Ablauf ähnlich einem Dirigenten:
+
+1.  **Init:** Der `DataManager` lädt alle Daten in den Speicher.
+2.  **Update:** Der Controller iteriert über alle beendeten Spiele.
+3.  **Calculation:**
+    * Der `ScoringCalculator` aktualisiert die Punkte aller User.
+    * Der `BingoManager` prüft Ereignisse und aktualisiert Bingo-Status.
+4.  **Ranking:** Die User-Liste wird nach Punkten sortiert.
+5.  **Payout:** Die `FinanceEngine` prüft, ob Auszahlungen fällig sind (z.B. Gruppe A+B beendet).
+6.  **Save:** Der neue Status wird exportiert.
+
+### 4.4 UML-Klassendiagramm
+![alt text](uml_klassendiagramm.png)
 
 ---
 
