@@ -1,0 +1,73 @@
+[
+  {
+    "UserId": "USR-001",
+    "Name": "Max Mustermann",
+    "CurrentScore": {
+      "TotalPoints": 0,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 0,
+      "FulfilledBingoCells": 0,
+      "TotalFinancialWinnings": 0.0,
+      "WonPots": []
+    },
+    "BetData": {
+      "GroupMatchBets": [
+        {
+          "MatchId": "MATCH_001",
+          "HomeGoals": 3,
+          "AwayGoals": 2
+        },
+        {
+          "MatchId": "MATCH_002",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        }
+      ],
+      "GroupWinnerBets": {
+        "A": "TEAM_GER",
+        "B": "TEAM_ENG",
+        "C": "TEAM_ARG"
+      },
+      "KnockoutBets": {
+        "RoundOf32": [ "TEAM_GER", "TEAM_ENG", "TEAM_ESP", "TEAM_FRA" ],
+        "RoundOf16": [ "TEAM_GER", "TEAM_FRA" ],
+        "QuarterFinal": [ "TEAM_GER" ],
+        "SemiFinal": [ "TEAM_GER" ],
+        "Final": [ "TEAM_GER" ]
+      },
+      "SpecialBets": {
+        "WorldChampionTeamId": "TEAM_GER",
+        "TopScorerName": "Jamal Musiala"
+      },
+      "BingoCard": {
+        "Cells": [
+          {
+            "Position": 0,
+            "EventId": "BINGO_EVT_RED_CARD_GROUP_A",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 1,
+            "EventId": "BINGO_EVT_GOAL_KEEPER_ASSIST",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 12,
+            "EventId": "FREE_SPACE",
+            "IsFulfilled": true,
+            "FulfilledAt": "2026-06-01T00:00:00Z"
+          },
+          {
+            "Position": 24,
+            "EventId": "BINGO_EVT_OWN_GOAL_FINAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          }
+        ]
+      }
+    }
+  }
+]

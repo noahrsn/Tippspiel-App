@@ -1,0 +1,48 @@
+{
+  "MatchResults": [
+    {
+      "MatchId": "MATCH_001",
+      "GroupName": "A",
+      "HomeGoals": 2,
+      "AwayGoals": 1,
+      "IsFinished": true
+    },
+    {
+      "MatchId": "MATCH_002",
+      "GroupName": "B",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": true
+    },
+    {
+      "MatchId": "MATCH_003",
+      "GroupName": "C",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    }
+  ],
+  "ActualGroupWinners": {
+    "A": "TEAM_GER",
+    "B": "TEAM_ENG",
+    "C": null
+  },
+  "ActualKnockoutTeams": {
+    "RoundOf32": [ 
+      "TEAM_GER", "TEAM_ENG", "TEAM_ESP", "TEAM_FRA", "TEAM_BRA", "TEAM_ARG" 
+    ],
+    "RoundOf16": [ 
+      "TEAM_GER", "TEAM_FRA" 
+    ],
+    "QuarterFinal": [],
+    "SemiFinal": [],
+    "Final": []
+  },
+  "OccurredBingoEvents": [
+    "BINGO_EVT_RED_CARD_GROUP_A",
+    "BINGO_EVT_PENALTY_MISSED",
+    "BINGO_EVT_GOAL_KEEPER_ASSIST"
+  ],
+  "ActualWorldChampionTeamId": null,
+  "ActualTopScorerName": "Jamal Musiala"
+}
