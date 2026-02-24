@@ -11,14 +11,7 @@ namespace TippspielApp
     {
         static void Main(string[] args)
         {
-            // Eine Liste implementiert im Hintergrund IEnumerable<string>
-            IEnumerable<string> namen = new List<string> { "Anna", "Ben", "Clara" };
-
-            // Die foreach-Schleife nutzt IEnumerable, um alle Namen auszugeben
-            foreach (string name in namen)
-            {
-                Console.WriteLine(name);
-            }
+            
         }
     }
 }
