@@ -1,0 +1,35 @@
+{
+  "GeneratedAt": "2026-02-24T23:47:27.739037Z",
+  "Leaderboard": [
+    {
+      "Rank": 1,
+      "UserId": "USR-001",
+      "Name": "Noah Roosen",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 100,
+      "WonPots": [
+        "Bingo: Bester Bingospieler - meiste Felder (100 EUR)"
+      ]
+    }
+  ],
+  "GroupClusterResults": [],
+  "BingoPotResults": [
+    {
+      "PotLabel": "Bester Bingospieler (meiste Felder)",
+      "WinnerUserId": "USR-001",
+      "WinnerName": "Noah Roosen",
+      "Prize": 100
+    }
+  ],
+  "FinanceSummary": {
+    "TotalPot": 1800,
+    "DistributedAmount": 100,
+    "RemainingAmount": 1700,
+    "UnclaimedPots": []
+  }
+}

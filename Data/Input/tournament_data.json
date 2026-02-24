@@ -1,48 +1,1205 @@
 {
+  "Teams": [
+    {
+      "TeamId": "TEAM_MEX",
+      "DisplayName": "Mexiko",
+      "Group": "A",
+      "FlagCode": "mx"
+    },
+    {
+      "TeamId": "TEAM_JAM",
+      "DisplayName": "Jamaika",
+      "Group": "A",
+      "FlagCode": "jm"
+    },
+    {
+      "TeamId": "TEAM_HON",
+      "DisplayName": "Honduras",
+      "Group": "A",
+      "FlagCode": "hn"
+    },
+    {
+      "TeamId": "TEAM_VEN",
+      "DisplayName": "Venezuela",
+      "Group": "A",
+      "FlagCode": "ve"
+    },
+    {
+      "TeamId": "TEAM_USA",
+      "DisplayName": "USA",
+      "Group": "B",
+      "FlagCode": "us"
+    },
+    {
+      "TeamId": "TEAM_PAN",
+      "DisplayName": "Panama",
+      "Group": "B",
+      "FlagCode": "pa"
+    },
+    {
+      "TeamId": "TEAM_URU",
+      "DisplayName": "Uruguay",
+      "Group": "B",
+      "FlagCode": "uy"
+    },
+    {
+      "TeamId": "TEAM_BOL",
+      "DisplayName": "Bolivien",
+      "Group": "B",
+      "FlagCode": "bo"
+    },
+    {
+      "TeamId": "TEAM_CAN",
+      "DisplayName": "Kanada",
+      "Group": "C",
+      "FlagCode": "ca"
+    },
+    {
+      "TeamId": "TEAM_ECU",
+      "DisplayName": "Ecuador",
+      "Group": "C",
+      "FlagCode": "ec"
+    },
+    {
+      "TeamId": "TEAM_CHI",
+      "DisplayName": "Chile",
+      "Group": "C",
+      "FlagCode": "cl"
+    },
+    {
+      "TeamId": "TEAM_PER",
+      "DisplayName": "Peru",
+      "Group": "C",
+      "FlagCode": "pe"
+    },
+    {
+      "TeamId": "TEAM_GER",
+      "DisplayName": "Deutschland",
+      "Group": "D",
+      "FlagCode": "de"
+    },
+    {
+      "TeamId": "TEAM_JPN",
+      "DisplayName": "Japan",
+      "Group": "D",
+      "FlagCode": "jp"
+    },
+    {
+      "TeamId": "TEAM_AUS",
+      "DisplayName": "Australien",
+      "Group": "D",
+      "FlagCode": "au"
+    },
+    {
+      "TeamId": "TEAM_GUI",
+      "DisplayName": "Guinea",
+      "Group": "D",
+      "FlagCode": "gn"
+    },
+    {
+      "TeamId": "TEAM_ESP",
+      "DisplayName": "Spanien",
+      "Group": "E",
+      "FlagCode": "es"
+    },
+    {
+      "TeamId": "TEAM_MAR",
+      "DisplayName": "Marokko",
+      "Group": "E",
+      "FlagCode": "ma"
+    },
+    {
+      "TeamId": "TEAM_SEN",
+      "DisplayName": "Senegal",
+      "Group": "E",
+      "FlagCode": "sn"
+    },
+    {
+      "TeamId": "TEAM_NZL",
+      "DisplayName": "Neuseeland",
+      "Group": "E",
+      "FlagCode": "nz"
+    },
+    {
+      "TeamId": "TEAM_FRA",
+      "DisplayName": "Frankreich",
+      "Group": "F",
+      "FlagCode": "fr"
+    },
+    {
+      "TeamId": "TEAM_ARG",
+      "DisplayName": "Argentinien",
+      "Group": "F",
+      "FlagCode": "ar"
+    },
+    {
+      "TeamId": "TEAM_KSA",
+      "DisplayName": "Saudi-Arabien",
+      "Group": "F",
+      "FlagCode": "sa"
+    },
+    {
+      "TeamId": "TEAM_NGA",
+      "DisplayName": "Nigeria",
+      "Group": "F",
+      "FlagCode": "ng"
+    },
+    {
+      "TeamId": "TEAM_BRA",
+      "DisplayName": "Brasilien",
+      "Group": "G",
+      "FlagCode": "br"
+    },
+    {
+      "TeamId": "TEAM_COL",
+      "DisplayName": "Kolumbien",
+      "Group": "G",
+      "FlagCode": "co"
+    },
+    {
+      "TeamId": "TEAM_TUN",
+      "DisplayName": "Tunesien",
+      "Group": "G",
+      "FlagCode": "tn"
+    },
+    {
+      "TeamId": "TEAM_JOR",
+      "DisplayName": "Jordanien",
+      "Group": "G",
+      "FlagCode": "jo"
+    },
+    {
+      "TeamId": "TEAM_ENG",
+      "DisplayName": "England",
+      "Group": "H",
+      "FlagCode": "gb-eng"
+    },
+    {
+      "TeamId": "TEAM_NED",
+      "DisplayName": "Niederlande",
+      "Group": "H",
+      "FlagCode": "nl"
+    },
+    {
+      "TeamId": "TEAM_CIV",
+      "DisplayName": "Elfenbeinkuste",
+      "Group": "H",
+      "FlagCode": "ci"
+    },
+    {
+      "TeamId": "TEAM_CMR",
+      "DisplayName": "Kamerun",
+      "Group": "H",
+      "FlagCode": "cm"
+    },
+    {
+      "TeamId": "TEAM_POR",
+      "DisplayName": "Portugal",
+      "Group": "I",
+      "FlagCode": "pt"
+    },
+    {
+      "TeamId": "TEAM_POL",
+      "DisplayName": "Polen",
+      "Group": "I",
+      "FlagCode": "pl"
+    },
+    {
+      "TeamId": "TEAM_EGY",
+      "DisplayName": "Agypten",
+      "Group": "I",
+      "FlagCode": "eg"
+    },
+    {
+      "TeamId": "TEAM_COD",
+      "DisplayName": "Kongo DR",
+      "Group": "I",
+      "FlagCode": "cd"
+    },
+    {
+      "TeamId": "TEAM_BEL",
+      "DisplayName": "Belgien",
+      "Group": "J",
+      "FlagCode": "be"
+    },
+    {
+      "TeamId": "TEAM_CRO",
+      "DisplayName": "Kroatien",
+      "Group": "J",
+      "FlagCode": "hr"
+    },
+    {
+      "TeamId": "TEAM_SRB",
+      "DisplayName": "Serbien",
+      "Group": "J",
+      "FlagCode": "rs"
+    },
+    {
+      "TeamId": "TEAM_KOR",
+      "DisplayName": "Sudkorea",
+      "Group": "J",
+      "FlagCode": "kr"
+    },
+    {
+      "TeamId": "TEAM_ITA",
+      "DisplayName": "Italien",
+      "Group": "K",
+      "FlagCode": "it"
+    },
+    {
+      "TeamId": "TEAM_DEN",
+      "DisplayName": "Danemark",
+      "Group": "K",
+      "FlagCode": "dk"
+    },
+    {
+      "TeamId": "TEAM_IRN",
+      "DisplayName": "Iran",
+      "Group": "K",
+      "FlagCode": "ir"
+    },
+    {
+      "TeamId": "TEAM_QAT",
+      "DisplayName": "Katar",
+      "Group": "K",
+      "FlagCode": "qa"
+    },
+    {
+      "TeamId": "TEAM_SUI",
+      "DisplayName": "Schweiz",
+      "Group": "L",
+      "FlagCode": "ch"
+    },
+    {
+      "TeamId": "TEAM_TUR",
+      "DisplayName": "Turkei",
+      "Group": "L",
+      "FlagCode": "tr"
+    },
+    {
+      "TeamId": "TEAM_RSA",
+      "DisplayName": "Sudafrika",
+      "Group": "L",
+      "FlagCode": "za"
+    },
+    {
+      "TeamId": "TEAM_IRQ",
+      "DisplayName": "Irak",
+      "Group": "L",
+      "FlagCode": "iq"
+    }
+  ],
+  "BingoEventCatalog": [
+    {
+      "EventId": "EVT_RED_CARD_GRP_A",
+      "Description": "Rote Karte in Gruppe A",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_PENALTY_MISSED",
+      "Description": "Elfmeter verschossen (Spielfeld)",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_GK_ASSIST",
+      "Description": "Torwart gibt Torvorlage",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_HAT_TRICK",
+      "Description": "Hat-Trick in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_OWN_GOAL",
+      "Description": "Eigentor in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_VAR_REVERSAL",
+      "Description": "Entscheidung per VAR umgekehrt",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_HEADER_GOAL",
+      "Description": "Kopfballtor in der K.O.-Phase",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_COMEBACK",
+      "Description": "Team gewinnt nach 0:2-Ruckstand",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_5_GOALS_MATCH",
+      "Description": "5+ Tore in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_EXTRA_TIME_FINAL",
+      "Description": "Finale geht in Verlangerung",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_BICYCLE_KICK_GOAL",
+      "Description": "Fallruckziehertor im Turnier",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_DEBUT_GOAL_FINAL",
+      "Description": "Joker-Debutant trifft im Finale",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_ZERO_ZERO_FINAL",
+      "Description": "Finale endet 0:0 nach Verlangerung",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_INJURY_TIME_WINNER",
+      "Description": "Siegertor in 90.+ Minute",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_FASTEST_GOAL_EVER",
+      "Description": "Tor in den ersten 2 Minuten",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_GK_GOAL",
+      "Description": "Torwart erzielt Tor",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_RED_CARD_FINAL",
+      "Description": "Rote Karte im Finale",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_QUAD_PENALTIES",
+      "Description": "4+ Elfmeter in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_BRACE_DEFENDER",
+      "Description": "Verteidiger erzielt 2 Tore in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_DEBUT_SCORER",
+      "Description": "Debutierende Nation trifft",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_GAME_ABANDONED",
+      "Description": "Spiel abgebrochen",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_3_0_FORFEIT",
+      "Description": "Spiel per Forfeit 3:0 gewertet",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_TRIPLE_SUB_EXT",
+      "Description": "3 Wechsel in der Verlangerung",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_ZERO_SHOTS_TEAM",
+      "Description": "Team hat 0 Torschusse in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_ALL_PENALTIES_SCORED",
+      "Description": "Alle Elfmeter im Schießen verwandelt",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_MATCH_POSTPONED",
+      "Description": "Spiel verschoben",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_PANENKA_PENALTY",
+      "Description": "Panenka-Elfmeter verwandelt",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_WONDER_GOAL_30M",
+      "Description": "Traumtor aus 30+ Metern",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_DOUBLE_OWN_GOAL",
+      "Description": "Zwei Eigentore in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_CARD_AFTER_WHISTLE",
+      "Description": "Karte nach Schlusspfiff",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_5_SUBS_NORMAL_TIME",
+      "Description": "Team nutzt alle 5 Wechsel in regularer Spielzeit",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_HOST_NATION_TOP4",
+      "Description": "Gastgeber-Nation unter letzten 4",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_GK_PENALTY_SAVE_DEB",
+      "Description": "Torwart-Debutant halt Elfmeter",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_FINAL_DECIDED_PENS",
+      "Description": "Finale durch Elfmeterschießen entschieden",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_MISS3_PENS_SHOOTOUT",
+      "Description": "Team verschießt 3+ Elfmeter im Schießen",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_PLAYER_3_GAMES_ROW",
+      "Description": "Spieler trifft in 3 Spielen hintereinander",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_OLDEST_SCORER",
+      "Description": "Tor von Spieler uber 38",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_YOUNGEST_SCORER",
+      "Description": "Tor von Spieler unter 18",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_GOAL_ADDED_TIME_GRP",
+      "Description": "Nachspielzeit-Tor entscheidet Aufstieg in Gruppe",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_4_YELLOWS_ONE_TEAM",
+      "Description": "4+ Gelbe Karten fur ein Team in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_SCORELESS_FIRST_HALF",
+      "Description": "Finale: torlos in der 1. Halbzeit",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_LONGSHOT_GOAL",
+      "Description": "Tor aus 35+ Metern",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_FREEKICK_GOAL",
+      "Description": "Direktes Freistoßtor",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_PENALTY_SPOT_TWICE",
+      "Description": "2 Elfmeter fur dasselbe Team in einem Spiel",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_CAPTAIN_RED_CARD",
+      "Description": "Kapitan sieht Rote Karte",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_DEFENDER_TOP_SCORER",
+      "Description": "Verteidiger ist Toptorschutze eines Spieltags",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_ALL_GOALS_HEADERS",
+      "Description": "Alle Tore eines Spiels per Kopfball",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_0_1_COMEBACK_WIN",
+      "Description": "Team gewinnt nach 0:1 in K.O.-Phase",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_FINALIST_FIRST_TIME",
+      "Description": "Finalist zum ersten Mal im WM-Finale",
+      "Occurred": false
+    },
+    {
+      "EventId": "EVT_6_GOALS_MATCH",
+      "Description": "6+ Tore in einem Spiel",
+      "Occurred": false
+    }
+  ],
   "MatchResults": [
     {
-      "MatchId": "MATCH_001",
+      "MatchId": "MATCH_A1",
       "GroupName": "A",
-      "HomeGoals": 2,
-      "AwayGoals": 1,
-      "IsFinished": true
-    },
-    {
-      "MatchId": "MATCH_002",
-      "GroupName": "B",
+      "HomeTeamId": "TEAM_MEX",
+      "AwayTeamId": "TEAM_JAM",
       "HomeGoals": 0,
       "AwayGoals": 0,
-      "IsFinished": true
+      "IsFinished": false
     },
     {
-      "MatchId": "MATCH_003",
+      "MatchId": "MATCH_A2",
+      "GroupName": "A",
+      "HomeTeamId": "TEAM_HON",
+      "AwayTeamId": "TEAM_VEN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_A3",
+      "GroupName": "A",
+      "HomeTeamId": "TEAM_MEX",
+      "AwayTeamId": "TEAM_HON",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_A4",
+      "GroupName": "A",
+      "HomeTeamId": "TEAM_JAM",
+      "AwayTeamId": "TEAM_VEN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_A5",
+      "GroupName": "A",
+      "HomeTeamId": "TEAM_MEX",
+      "AwayTeamId": "TEAM_VEN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_A6",
+      "GroupName": "A",
+      "HomeTeamId": "TEAM_JAM",
+      "AwayTeamId": "TEAM_HON",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_B1",
+      "GroupName": "B",
+      "HomeTeamId": "TEAM_USA",
+      "AwayTeamId": "TEAM_PAN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_B2",
+      "GroupName": "B",
+      "HomeTeamId": "TEAM_URU",
+      "AwayTeamId": "TEAM_BOL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_B3",
+      "GroupName": "B",
+      "HomeTeamId": "TEAM_USA",
+      "AwayTeamId": "TEAM_URU",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_B4",
+      "GroupName": "B",
+      "HomeTeamId": "TEAM_PAN",
+      "AwayTeamId": "TEAM_BOL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_B5",
+      "GroupName": "B",
+      "HomeTeamId": "TEAM_USA",
+      "AwayTeamId": "TEAM_BOL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_B6",
+      "GroupName": "B",
+      "HomeTeamId": "TEAM_PAN",
+      "AwayTeamId": "TEAM_URU",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_C1",
       "GroupName": "C",
+      "HomeTeamId": "TEAM_CAN",
+      "AwayTeamId": "TEAM_ECU",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_C2",
+      "GroupName": "C",
+      "HomeTeamId": "TEAM_CHI",
+      "AwayTeamId": "TEAM_PER",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_C3",
+      "GroupName": "C",
+      "HomeTeamId": "TEAM_CAN",
+      "AwayTeamId": "TEAM_CHI",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_C4",
+      "GroupName": "C",
+      "HomeTeamId": "TEAM_ECU",
+      "AwayTeamId": "TEAM_PER",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_C5",
+      "GroupName": "C",
+      "HomeTeamId": "TEAM_CAN",
+      "AwayTeamId": "TEAM_PER",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_C6",
+      "GroupName": "C",
+      "HomeTeamId": "TEAM_ECU",
+      "AwayTeamId": "TEAM_CHI",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_D1",
+      "GroupName": "D",
+      "HomeTeamId": "TEAM_GER",
+      "AwayTeamId": "TEAM_JPN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_D2",
+      "GroupName": "D",
+      "HomeTeamId": "TEAM_AUS",
+      "AwayTeamId": "TEAM_GUI",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_D3",
+      "GroupName": "D",
+      "HomeTeamId": "TEAM_GER",
+      "AwayTeamId": "TEAM_AUS",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_D4",
+      "GroupName": "D",
+      "HomeTeamId": "TEAM_JPN",
+      "AwayTeamId": "TEAM_GUI",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_D5",
+      "GroupName": "D",
+      "HomeTeamId": "TEAM_GER",
+      "AwayTeamId": "TEAM_GUI",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_D6",
+      "GroupName": "D",
+      "HomeTeamId": "TEAM_JPN",
+      "AwayTeamId": "TEAM_AUS",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_E1",
+      "GroupName": "E",
+      "HomeTeamId": "TEAM_ESP",
+      "AwayTeamId": "TEAM_MAR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_E2",
+      "GroupName": "E",
+      "HomeTeamId": "TEAM_SEN",
+      "AwayTeamId": "TEAM_NZL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_E3",
+      "GroupName": "E",
+      "HomeTeamId": "TEAM_ESP",
+      "AwayTeamId": "TEAM_SEN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_E4",
+      "GroupName": "E",
+      "HomeTeamId": "TEAM_MAR",
+      "AwayTeamId": "TEAM_NZL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_E5",
+      "GroupName": "E",
+      "HomeTeamId": "TEAM_ESP",
+      "AwayTeamId": "TEAM_NZL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_E6",
+      "GroupName": "E",
+      "HomeTeamId": "TEAM_MAR",
+      "AwayTeamId": "TEAM_SEN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_F1",
+      "GroupName": "F",
+      "HomeTeamId": "TEAM_FRA",
+      "AwayTeamId": "TEAM_ARG",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_F2",
+      "GroupName": "F",
+      "HomeTeamId": "TEAM_KSA",
+      "AwayTeamId": "TEAM_NGA",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_F3",
+      "GroupName": "F",
+      "HomeTeamId": "TEAM_FRA",
+      "AwayTeamId": "TEAM_KSA",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_F4",
+      "GroupName": "F",
+      "HomeTeamId": "TEAM_ARG",
+      "AwayTeamId": "TEAM_NGA",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_F5",
+      "GroupName": "F",
+      "HomeTeamId": "TEAM_FRA",
+      "AwayTeamId": "TEAM_NGA",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_F6",
+      "GroupName": "F",
+      "HomeTeamId": "TEAM_ARG",
+      "AwayTeamId": "TEAM_KSA",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_G1",
+      "GroupName": "G",
+      "HomeTeamId": "TEAM_BRA",
+      "AwayTeamId": "TEAM_COL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_G2",
+      "GroupName": "G",
+      "HomeTeamId": "TEAM_TUN",
+      "AwayTeamId": "TEAM_JOR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_G3",
+      "GroupName": "G",
+      "HomeTeamId": "TEAM_BRA",
+      "AwayTeamId": "TEAM_TUN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_G4",
+      "GroupName": "G",
+      "HomeTeamId": "TEAM_COL",
+      "AwayTeamId": "TEAM_JOR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_G5",
+      "GroupName": "G",
+      "HomeTeamId": "TEAM_BRA",
+      "AwayTeamId": "TEAM_JOR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_G6",
+      "GroupName": "G",
+      "HomeTeamId": "TEAM_COL",
+      "AwayTeamId": "TEAM_TUN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_H1",
+      "GroupName": "H",
+      "HomeTeamId": "TEAM_ENG",
+      "AwayTeamId": "TEAM_NED",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_H2",
+      "GroupName": "H",
+      "HomeTeamId": "TEAM_CIV",
+      "AwayTeamId": "TEAM_CMR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_H3",
+      "GroupName": "H",
+      "HomeTeamId": "TEAM_ENG",
+      "AwayTeamId": "TEAM_CIV",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_H4",
+      "GroupName": "H",
+      "HomeTeamId": "TEAM_NED",
+      "AwayTeamId": "TEAM_CMR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_H5",
+      "GroupName": "H",
+      "HomeTeamId": "TEAM_ENG",
+      "AwayTeamId": "TEAM_CMR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_H6",
+      "GroupName": "H",
+      "HomeTeamId": "TEAM_NED",
+      "AwayTeamId": "TEAM_CIV",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_I1",
+      "GroupName": "I",
+      "HomeTeamId": "TEAM_POR",
+      "AwayTeamId": "TEAM_POL",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_I2",
+      "GroupName": "I",
+      "HomeTeamId": "TEAM_EGY",
+      "AwayTeamId": "TEAM_COD",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_I3",
+      "GroupName": "I",
+      "HomeTeamId": "TEAM_POR",
+      "AwayTeamId": "TEAM_EGY",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_I4",
+      "GroupName": "I",
+      "HomeTeamId": "TEAM_POL",
+      "AwayTeamId": "TEAM_COD",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_I5",
+      "GroupName": "I",
+      "HomeTeamId": "TEAM_POR",
+      "AwayTeamId": "TEAM_COD",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_I6",
+      "GroupName": "I",
+      "HomeTeamId": "TEAM_POL",
+      "AwayTeamId": "TEAM_EGY",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_J1",
+      "GroupName": "J",
+      "HomeTeamId": "TEAM_BEL",
+      "AwayTeamId": "TEAM_CRO",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_J2",
+      "GroupName": "J",
+      "HomeTeamId": "TEAM_SRB",
+      "AwayTeamId": "TEAM_KOR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_J3",
+      "GroupName": "J",
+      "HomeTeamId": "TEAM_BEL",
+      "AwayTeamId": "TEAM_SRB",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_J4",
+      "GroupName": "J",
+      "HomeTeamId": "TEAM_CRO",
+      "AwayTeamId": "TEAM_KOR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_J5",
+      "GroupName": "J",
+      "HomeTeamId": "TEAM_BEL",
+      "AwayTeamId": "TEAM_KOR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_J6",
+      "GroupName": "J",
+      "HomeTeamId": "TEAM_CRO",
+      "AwayTeamId": "TEAM_SRB",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_K1",
+      "GroupName": "K",
+      "HomeTeamId": "TEAM_ITA",
+      "AwayTeamId": "TEAM_DEN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_K2",
+      "GroupName": "K",
+      "HomeTeamId": "TEAM_IRN",
+      "AwayTeamId": "TEAM_QAT",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_K3",
+      "GroupName": "K",
+      "HomeTeamId": "TEAM_ITA",
+      "AwayTeamId": "TEAM_IRN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_K4",
+      "GroupName": "K",
+      "HomeTeamId": "TEAM_DEN",
+      "AwayTeamId": "TEAM_QAT",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_K5",
+      "GroupName": "K",
+      "HomeTeamId": "TEAM_ITA",
+      "AwayTeamId": "TEAM_QAT",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_K6",
+      "GroupName": "K",
+      "HomeTeamId": "TEAM_DEN",
+      "AwayTeamId": "TEAM_IRN",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_L1",
+      "GroupName": "L",
+      "HomeTeamId": "TEAM_SUI",
+      "AwayTeamId": "TEAM_TUR",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_L2",
+      "GroupName": "L",
+      "HomeTeamId": "TEAM_RSA",
+      "AwayTeamId": "TEAM_IRQ",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_L3",
+      "GroupName": "L",
+      "HomeTeamId": "TEAM_SUI",
+      "AwayTeamId": "TEAM_RSA",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_L4",
+      "GroupName": "L",
+      "HomeTeamId": "TEAM_TUR",
+      "AwayTeamId": "TEAM_IRQ",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_L5",
+      "GroupName": "L",
+      "HomeTeamId": "TEAM_SUI",
+      "AwayTeamId": "TEAM_IRQ",
+      "HomeGoals": 0,
+      "AwayGoals": 0,
+      "IsFinished": false
+    },
+    {
+      "MatchId": "MATCH_L6",
+      "GroupName": "L",
+      "HomeTeamId": "TEAM_TUR",
+      "AwayTeamId": "TEAM_RSA",
       "HomeGoals": 0,
       "AwayGoals": 0,
       "IsFinished": false
     }
   ],
-  "ActualGroupWinners": {
-    "A": "TEAM_GER",
-    "B": "TEAM_ENG",
-    "C": null
-  },
+  "ActualGroupWinners": {},
   "ActualKnockoutTeams": {
-    "RoundOf32": [ 
-      "TEAM_GER", "TEAM_ENG", "TEAM_ESP", "TEAM_FRA", "TEAM_BRA", "TEAM_ARG" 
-    ],
-    "RoundOf16": [ 
-      "TEAM_GER", "TEAM_FRA" 
-    ],
+    "RoundOf32": [],
+    "RoundOf16": [],
     "QuarterFinal": [],
     "SemiFinal": [],
     "Final": []
   },
-  "OccurredBingoEvents": [
-    "BINGO_EVT_RED_CARD_GROUP_A",
-    "BINGO_EVT_PENALTY_MISSED",
-    "BINGO_EVT_GOAL_KEEPER_ASSIST"
-  ],
+  "OccurredBingoEvents": [],
   "ActualWorldChampionTeamId": null,
-  "ActualTopScorerName": "Jamal Musiala"
+  "ActualTopScorerName": null
 }

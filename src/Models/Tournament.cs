@@ -1,21 +1,38 @@
-using System.Collections.Generic;
-
-namespace TippspielApp.Models
+﻿namespace TippspielApp.Models
 {
     public class TournamentData
     {
-        public List<MatchResult> MatchResults { get; set; }
-        public Dictionary<string, string> ActualGroupWinners { get; set; }
-        public Dictionary<string, List<string>> ActualKnockoutTeams { get; set; }
-        public List<string> OccurredBingoEvents { get; set; }
-        public string ActualWorldChampionTeamId { get; set; }
-        public string ActualTopScorerName { get; set; }
+        public List<TeamInfo> Teams { get; set; } = [];
+        public List<BingoEventInfo> BingoEventCatalog { get; set; } = [];
+        public List<MatchResult> MatchResults { get; set; } = [];
+        public Dictionary<string, string> ActualGroupWinners { get; set; } = [];
+        public Dictionary<string, List<string>> ActualKnockoutTeams { get; set; } = [];
+        public List<string> OccurredBingoEvents { get; set; } = [];
+        public string? ActualWorldChampionTeamId { get; set; }
+        public string? ActualTopScorerName { get; set; }
+    }
+
+    public class TeamInfo
+    {
+        public string TeamId { get; set; } = string.Empty;
+        public string DisplayName { get; set; } = string.Empty;
+        public string Group { get; set; } = string.Empty;
+        public string FlagCode { get; set; } = string.Empty;
+    }
+
+    public class BingoEventInfo
+    {
+        public string EventId { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public bool Occurred { get; set; }
     }
 
     public class MatchResult
     {
-        public string MatchId { get; set; }
-        public string GroupName { get; set; }
+        public string MatchId { get; set; } = string.Empty;
+        public string GroupName { get; set; } = string.Empty;
+        public string HomeTeamId { get; set; } = string.Empty;
+        public string AwayTeamId { get; set; } = string.Empty;
         public int HomeGoals { get; set; }
         public int AwayGoals { get; set; }
         public bool IsFinished { get; set; }

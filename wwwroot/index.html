@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WM 2026 Tippspiel</title>
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<header>
+  <span class="logo">&#127942; WM 2026</span>
+  <div>
+    <div style="font-weight:700;font-size:1rem;">Tippspiel &amp; Bingo</div>
+    <div class="sub">Verwaltung der Tipper &amp; Auswertung</div>
+  </div>
+</header>
+
+<!-- Main navigation -->
+<nav class="main-nav">
+  <button class="nav-btn active" onclick="switchMain(this,'page-users')">&#128101; Tipper</button>
+  <button class="nav-btn" onclick="switchMain(this,'page-ranking')">&#127942; Auswertung</button>
+</nav>
+
+<div class="container">
+
+  <!-- ═══ PAGE: TIPPER ════════════════════════════════════════════════════ -->
+  <div id="page-users" class="main-page">
+
+    <!-- List view -->
+    <div id="view-list">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+        <h2>Tipper</h2>
+        <button class="btn btn-primary" onclick="newUser()">+ Neuer Tipper</button>
+      </div>
+      <div class="card" id="users-table-wrap">
+        <div class="empty-state">Lade Tipper ...</div>
+      </div>
+    </div>
+
+    <!-- Form view -->
+    <div id="view-form" style="display:none;">
+      <div class="back-btn-wrap">
+        <button class="btn btn-ghost" onclick="showList()">&larr; Zur&uuml;ck</button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+        <h2 id="form-title">Neuer Tipper</h2>
+        <button class="btn btn-success" onclick="saveUser()">&#10003; Speichern</button>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="field">
+            <label>Name *</label>
+            <input type="text" id="f-name" placeholder="Vor- und Nachname" required>
+          </div>
+          <div class="field">
+            <label>Tipper-ID (auto wenn leer)</label>
+            <input type="text" id="f-id" placeholder="z.B. USR-042">
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'t-groups')">&#9917; Gruppenspiele (72)</button>
+        <button class="tab-btn" onclick="switchTab(this,'t-ko')">&#127942; K.O.-Runden</button>
+        <button class="tab-btn" onclick="switchTab(this,'t-special')">&#11088; Sondertipps</button>
+        <button class="tab-btn" onclick="switchTab(this,'t-bingo')">&#127920; Bingo-Karte</button>
+      </div>
+
+      <div id="t-groups" class="tab-panel active">
+        <div id="group-matches-container"><div class="empty-state">Lade Spiele ...</div></div>
+      </div>
+
+      <div id="t-ko" class="tab-panel">
+        <div id="ko-rounds-container"><div class="empty-state">Lade KO-Runden ...</div></div>
+      </div>
+
+      <div id="t-special" class="tab-panel">
+        <div class="card">
+          <div class="section-title">Sondertipps (je 20 Punkte)</div>
+          <div class="row">
+            <div class="field">
+              <label>Weltmeister (Team)</label>
+              <select id="f-worldchamp"><option value="">-- Team ausw&auml;hlen --</option></select>
+            </div>
+            <div class="field">
+              <label>Torsch&uuml;tzenkönig (vollst. Name)</label>
+              <input type="text" id="f-topscorer" placeholder="z.B. Jamal Musiala">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="t-bingo" class="tab-panel">
+        <div class="card">
+          <div class="section-title">Bingo-Karte (5&#xD7;5)</div>
+          <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem;">
+            W&auml;hle f&uuml;r jedes Feld ein Ereignis aus dem Katalog.
+            Jedes Ereignis kann nur einmal gew&auml;hlt werden.
+            Das mittlere Feld (Position 12) ist das <strong>FREE-Feld</strong>.
+          </p>
+          <div class="bingo-grid" id="bingo-grid-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: AUSWERTUNG ════════════════════════════════════════════════ -->
+  <div id="page-ranking" class="main-page" style="display:none;">
+
+    <div class="calc-bar">
+      <span class="last-calc" id="last-calc-time"></span>
+      <button class="btn btn-primary" onclick="recalculate()">&#9654; Neu berechnen</button>
+    </div>
+
+    <!-- Stats summary -->
+    <div class="stat-grid" id="stat-grid"></div>
+
+    <!-- Sub-tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'rt-board')">&#127942; Rangliste</button>
+      <button class="tab-btn" onclick="switchTab(this,'rt-cluster')">&#128200; Gruppen-Cluster</button>
+      <button class="tab-btn" onclick="switchTab(this,'rt-bingo')">&#127920; Bingo-Gewinne</button>
+      <button class="tab-btn" onclick="switchTab(this,'rt-finance')">&#128181; Finanzen</button>
+    </div>
+
+    <div id="rt-board" class="tab-panel active">
+      <div class="card" id="leaderboard-wrap"><div class="empty-state">Bitte Auswertung starten.</div></div>
+    </div>
+
+    <div id="rt-cluster" class="tab-panel">
+      <div class="card" id="cluster-wrap"><div class="empty-state">Bitte Auswertung starten.</div></div>
+    </div>
+
+    <div id="rt-bingo" class="tab-panel">
+      <div class="card" id="bingo-pots-wrap"><div class="empty-state">Bitte Auswertung starten.</div></div>
+    </div>
+
+    <div id="rt-finance" class="tab-panel">
+      <div class="card" id="finance-wrap"><div class="empty-state">Bitte Auswertung starten.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div id="spinner"><div class="spin"></div></div>
+<div id="toast"></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

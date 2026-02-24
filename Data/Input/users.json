@@ -1,56 +1,520 @@
-[
+﻿[
   {
     "UserId": "USR-001",
-    "Name": "Max Mustermann",
-    "CurrentScore": {
-      "TotalPoints": 0,
-      "ClassicPoints": 0,
-      "KnockoutPoints": 0,
-      "BingoPoints": 0,
-      "FulfilledBingoCells": 0,
-      "TotalFinancialWinnings": 0.0,
-      "WonPots": []
-    },
+    "Name": "Noah Roosen",
     "BetData": {
       "GroupMatchBets": [
         {
-          "MatchId": "MATCH_001",
-          "HomeGoals": 3,
-          "AwayGoals": 2
+          "MatchId": "MATCH_A1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
         },
         {
-          "MatchId": "MATCH_002",
+          "MatchId": "MATCH_A2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_A3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_A4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_A5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_A6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_B1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_B2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_B3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_B4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_B5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_B6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_C1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_C2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_C3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_C4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_C5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_C6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_D1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_D2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_D3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_D4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_D5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_D6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_E1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_E2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_E3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_E4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_E5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_E6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_F1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_F2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_F3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_F4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_F5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_F6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_G1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_G2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_G3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_G4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_G5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_G6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_H1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_H2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_H3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_H4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_H5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_H6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_I1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_I2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_I3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_I4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_I5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_I6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_J1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_J2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_J3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_J4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_J5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_J6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_K1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_K2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_K3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_K4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_K5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_K6",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_L1",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_L2",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_L3",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_L4",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_L5",
+          "HomeGoals": 0,
+          "AwayGoals": 0
+        },
+        {
+          "MatchId": "MATCH_L6",
           "HomeGoals": 0,
           "AwayGoals": 0
         }
       ],
-      "GroupWinnerBets": {
-        "A": "TEAM_GER",
-        "B": "TEAM_ENG",
-        "C": "TEAM_ARG"
-      },
+      "GroupWinnerBets": null,
       "KnockoutBets": {
-        "RoundOf32": [ "TEAM_GER", "TEAM_ENG", "TEAM_ESP", "TEAM_FRA" ],
-        "RoundOf16": [ "TEAM_GER", "TEAM_FRA" ],
-        "QuarterFinal": [ "TEAM_GER" ],
-        "SemiFinal": [ "TEAM_GER" ],
-        "Final": [ "TEAM_GER" ]
+        "RoundOf32": [
+          "TEAM_MEX",
+          "TEAM_JAM",
+          "TEAM_HON",
+          "TEAM_VEN",
+          "TEAM_USA",
+          "TEAM_PAN",
+          "TEAM_URU",
+          "TEAM_BOL",
+          "TEAM_CAN",
+          "TEAM_ECU",
+          "TEAM_CHI",
+          "TEAM_PER",
+          "TEAM_GER",
+          "TEAM_JPN",
+          "TEAM_AUS",
+          "TEAM_GUI",
+          "TEAM_ESP",
+          "TEAM_MAR",
+          "TEAM_SEN",
+          "TEAM_NZL",
+          "TEAM_FRA",
+          "TEAM_ARG",
+          "TEAM_KSA",
+          "TEAM_NGA",
+          "TEAM_BRA",
+          "TEAM_COL",
+          "TEAM_TUN",
+          "TEAM_JOR",
+          "TEAM_ENG",
+          "TEAM_NED",
+          "TEAM_CIV",
+          "TEAM_CMR"
+        ],
+        "RoundOf16": [
+          "TEAM_MEX",
+          "TEAM_JAM",
+          "TEAM_HON",
+          "TEAM_VEN",
+          "TEAM_USA",
+          "TEAM_PAN",
+          "TEAM_URU",
+          "TEAM_BOL",
+          "TEAM_CAN",
+          "TEAM_ECU",
+          "TEAM_CHI",
+          "TEAM_PER",
+          "TEAM_GER",
+          "TEAM_JPN",
+          "TEAM_AUS",
+          "TEAM_GUI"
+        ],
+        "QuarterFinal": [
+          "TEAM_MEX",
+          "TEAM_JAM",
+          "TEAM_HON",
+          "TEAM_VEN",
+          "TEAM_USA",
+          "TEAM_PAN",
+          "TEAM_URU",
+          "TEAM_BOL"
+        ],
+        "SemiFinal": [
+          "TEAM_MEX",
+          "TEAM_JAM",
+          "TEAM_HON",
+          "TEAM_VEN"
+        ],
+        "Final": [
+          "TEAM_MEX",
+          "TEAM_JAM"
+        ]
       },
       "SpecialBets": {
-        "WorldChampionTeamId": "TEAM_GER",
-        "TopScorerName": "Jamal Musiala"
+        "WorldChampionTeamId": "",
+        "TopScorerName": ""
       },
       "BingoCard": {
         "Cells": [
           {
             "Position": 0,
-            "EventId": "BINGO_EVT_RED_CARD_GROUP_A",
+            "EventId": "EVT_RED_CARD_GRP_A",
             "IsFulfilled": false,
             "FulfilledAt": null
           },
           {
             "Position": 1,
-            "EventId": "BINGO_EVT_GOAL_KEEPER_ASSIST",
+            "EventId": "EVT_ALL_PENALTIES_SCORED",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 2,
+            "EventId": "EVT_PENALTY_MISSED",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 3,
+            "EventId": "EVT_GK_ASSIST",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 4,
+            "EventId": "EVT_OWN_GOAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 5,
+            "EventId": "EVT_VAR_REVERSAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 6,
+            "EventId": "EVT_HEADER_GOAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 7,
+            "EventId": "EVT_COMEBACK",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 8,
+            "EventId": "EVT_5_GOALS_MATCH",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 9,
+            "EventId": "EVT_EXTRA_TIME_FINAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 10,
+            "EventId": "EVT_BICYCLE_KICK_GOAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 11,
+            "EventId": "EVT_DEBUT_GOAL_FINAL",
             "IsFulfilled": false,
             "FulfilledAt": null
           },
@@ -58,16 +522,91 @@
             "Position": 12,
             "EventId": "FREE_SPACE",
             "IsFulfilled": true,
-            "FulfilledAt": "2026-06-01T00:00:00Z"
+            "FulfilledAt": "2026-06-11T00:00:00Z"
+          },
+          {
+            "Position": 13,
+            "EventId": "EVT_ZERO_ZERO_FINAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 14,
+            "EventId": "EVT_INJURY_TIME_WINNER",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 15,
+            "EventId": "EVT_FASTEST_GOAL_EVER",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 16,
+            "EventId": "EVT_GK_GOAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 17,
+            "EventId": "EVT_RED_CARD_FINAL",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 18,
+            "EventId": "EVT_QUAD_PENALTIES",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 19,
+            "EventId": "EVT_BRACE_DEFENDER",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 20,
+            "EventId": "EVT_DEBUT_SCORER",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 21,
+            "EventId": "EVT_GAME_ABANDONED",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 22,
+            "EventId": "EVT_3_0_FORFEIT",
+            "IsFulfilled": false,
+            "FulfilledAt": null
+          },
+          {
+            "Position": 23,
+            "EventId": "EVT_TRIPLE_SUB_EXT",
+            "IsFulfilled": false,
+            "FulfilledAt": null
           },
           {
             "Position": 24,
-            "EventId": "BINGO_EVT_OWN_GOAL_FINAL",
+            "EventId": "EVT_ZERO_SHOTS_TEAM",
             "IsFulfilled": false,
             "FulfilledAt": null
           }
         ]
       }
+    },
+    "CurrentScore": {
+      "TotalPoints": 0,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 0,
+      "FulfilledBingoCells": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
     }
   }
 ]
