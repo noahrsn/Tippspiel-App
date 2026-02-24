@@ -61,40 +61,41 @@ Die Architektur ist bewusst schlank gehalten, trennt aber sauber zwischen **Date
 Diese Klassen repräsentieren die Objekte des Spiels. Sie enthalten keine komplexe Logik, sondern nur Daten.
 
 * **`User`**: Repräsentiert einen Teilnehmer mit Name, ID, seinem aktuellen Punktestand und dem gewonnenen Preisgeld.
-* **`Match`**: Ein reales Spiel im Turnierplan. Enthält Daten wie `MatchID`, `TeamA`, `TeamB`, `KickoffTime` und nach Spielende das `MatchResult` (Tore, Karten, Statistiken).
-* **`Bet`**: Der Tipp eines Users für ein spezifisches Spiel (getipptes Ergebnis) oder eine Turnierphase (getippter Sieger).
-* **`BingoCard`**: Repräsentiert das 5x5-Feld eines Users. Sie speichert, welche der 25 Felder bereits "aktiviert" (erfüllt) wurden.
-* **`BingoEvent`**: Definition eines Ereignisses (z. B. "Rote Karte"). Dient als Referenzkatalog.
+* **`Tournament`**: Repräsentiert das reale Turnier. Enthält Daten zu Spielen (`Match`), Ergebnissen und eingetretenen Ereignissen.
+* **`Bets`**: Die Tipps eines Users für spezifische Spiele (getipptes Ergebnis), Turnierphasen (getippte K.O.-Runden-Teilnehmer) und Sondertipps.
+* **`Bingo`**: Repräsentiert das 5x5-Feld eines Users sowie den Katalog der möglichen Ereignisse.
+* **`Ranking`**: Repräsentiert das berechnete Leaderboard und den finanziellen Status der Teilnehmer.
 
 ### 4.2 Logik
-Hier findet die eigentliche Berechnung statt. Die Logik wird in überschaubare Manager aufgeteilt.
+Hier findet die eigentliche Berechnung statt. Die Logik wird in überschaubare Services aufgeteilt.
 
-* **`DataManager`**: 
+* **`DataHandler`**: 
     * Zuständig für Input/Output.
-    * Lädt `users.json` (Tipps) und `matches.json` (Ergebnisse) beim Start.
-    * Speichert das Ranking am Ende wieder ab.
-* **`ScoringCalculator`**: 
-    * Die "Mathe-Klasse". Sie bekommt einen `Bet` und ein `Match` und gibt die Punkte zurück (0, 1, 2 oder 3).
+    * Lädt `users.json` (Tipps) und `tournament_data.json` (Ergebnisse) beim Start.
+    * Speichert das Ranking (`ranking_current.json`) am Ende wieder ab.
+* **`ClassicBetEvaluator`**: 
+    * Die "Mathe-Klasse" für klassische Tipps. Sie vergleicht `Bets` mit `Tournament`-Daten und berechnet die Punkte (0, 2, 3 oder 4).
     * Berechnet auch Punkte für KO-Runden und Sondertipps.
-* **`BingoManager`**: 
+* **`BingoEvaluator`**: 
     * Prüft, ob Ereignisse im Turnier eingetreten sind.
-    * Aktualisiert die `BingoCard` der User.
-    * Erkennt Gewinnmuster (Reihen, Full House).
-* **`FinanceEngine`**: 
+    * Aktualisiert den Status der `Bingo`-Karten der User.
+    * Erkennt Gewinnmuster (Reihen) und berechnet die Bingo-Punkte.
+* **`FinanceCalculator`**: 
     * Verwaltet die Töpfe (1.800 € Gesamt).
-    * Berechnet die Zwischengewinne für Gruppen-Cluster und verteilt Bingo-Prämien.
+    * Berechnet die Zwischengewinne für Gruppen-Cluster und verteilt Bingo-Prämien sowie die Endabrechnung.
+* **`CalculationEngine`**:
+    * Der zentrale Orchestrator, der die Evaluatoren und den FinanceCalculator koordiniert, um das finale Ranking zu erstellen.
 
 ### 4.3 Programmablauf
-Eine zentrale Klasse, der **`TournamentController`**, steuert den Ablauf ähnlich einem Dirigenten:
+Die zentrale Klasse **`CalculationEngine`** steuert den Ablauf ähnlich einem Dirigenten:
 
-1.  **Init:** Der `DataManager` lädt alle Daten in den Speicher.
-2.  **Update:** Der Controller iteriert über alle beendeten Spiele.
-3.  **Calculation:**
-    * Der `ScoringCalculator` aktualisiert die Punkte aller User.
-    * Der `BingoManager` prüft Ereignisse und aktualisiert Bingo-Status.
-4.  **Ranking:** Die User-Liste wird nach Punkten sortiert.
-5.  **Payout:** Die `FinanceEngine` prüft, ob Auszahlungen fällig sind (z.B. Gruppe A+B beendet).
-6.  **Save:** Der neue Status wird exportiert.
+1.  **Init:** Der `DataHandler` lädt alle Daten in den Speicher.
+2.  **Calculation:**
+    * Der `ClassicBetEvaluator` aktualisiert die Punkte aller User basierend auf den Spielen.
+    * Der `BingoEvaluator` prüft Ereignisse und aktualisiert den Bingo-Status.
+3.  **Ranking:** Die User-Liste wird nach Punkten sortiert.
+4.  **Payout:** Der `FinanceCalculator` prüft, ob Auszahlungen fällig sind (z.B. Gruppe A+B beendet) und berechnet die Gewinne.
+5.  **Save:** Der neue Status wird über den `DataHandler` exportiert.
 
 ### 4.4 UML-Klassendiagramm
 ![alt text](uml_klassendiagramm.png)
@@ -123,6 +124,6 @@ Eine zentrale Klasse, der **`TournamentController`**, steuert den Ablauf ähnlic
 
 ## 6. Teststrategie für die Abgabe
 Um die Korrektheit der komplexen Regeln zu beweisen, werden **Szenario-Dateien** erstellt:
-1.  `input_bets.json`: Enthält Test-User mit unterschiedlichen Tipp-Strategien.
-2.  `match_day_X.json`: Simuliert verschiedene Turnier-Tage (z. B. "Ende Gruppenphase", "Finale").
+1.  `users.json`: Enthält Test-User mit unterschiedlichen Tipp-Strategien.
+2.  `tournament_data.json`: Simuliert verschiedene Turnier-Tage (z. B. "Ende Gruppenphase", "Finale").
 3.  **Erwartetes Ergebnis:** Das System muss für diese Inputs deterministisch die korrekten Punkte und Geldbeträge ausgeben (Vergleich Soll/Ist).
