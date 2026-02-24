@@ -22,22 +22,16 @@
 Alle **72 Gruppenspiele** der Gruppenphase müssen **vor Turnierbeginn** getippt werden.
 
 **Punkte pro Spiel:**
-- Exaktes Ergebnis: **3 Punkte**
-- Richtige Tordifferenz: **2 Punkte**
-- Richtige Tendenz (Sieg / Unentschieden / Niederlage): **1 Punkt**
+- Exaktes Ergebnis: **4 Punkte**
+- Richtige Tordifferenz (und jedes Unentschieden): **3 Punkte**
+- Richtige Tendenz (Sieg / Niederlage): **2 Punkte**
 - Falscher Tipp: **0 Punkte**
 
 ---
 
-### 2.2 Gruppensieger
+### 2.2 KO‑Phase – erreichte Runden
 
-- **12 Gruppen (A–L)**
-- Richtiger Gruppensieger: **5 Punkte**
-- Maximal erreichbar: **60 Punkte**
-
----
-
-### 2.3 KO‑Phase – erreichte Runden
+Jeder Teilnehmer darf seine K.O.-Runden-Teilnehmer unabhängig von seinen getippten Ergebnissen der Gruppenphase und dem Turnierbaum tippen.
 
 Getippt werden die Teams, die die jeweilige Runde erreichen.
 
@@ -53,10 +47,10 @@ Getippt werden die Teams, die die jeweilige Runde erreichen.
 
 ---
 
-### 2.4 Sondertipps
+### 2.3 Sondertipps
 
 - **Weltmeister:** 20 Punkte  
-- **Torschützenkönig:** 15 Punkte  
+- **Torschützenkönig:** 20 Punkte  
 
 Bei Gleichstand beim Torschützenkönig zählt der **zuerst genannte Spieler**.
 
@@ -77,7 +71,7 @@ Jeweils **zwei Gruppen werden zusammengefasst**:
 
 - **50 € Gewinn pro Gruppenblock**
 - Gewinner ist, wer **in diesen Gruppen die meisten Punkte** erzielt  
-  (Spielergebnisse + Gruppensieger)
+  (Spielergebnisse)
 
 Die Auszahlung erfolgt **direkt nach Abschluss** der jeweiligen Gruppen.
 
@@ -99,9 +93,8 @@ Die Auszahlung erfolgt **direkt nach Abschluss** der jeweiligen Gruppen.
 
 Die Bingo‑Punkte fließen **zusätzlich** in die normale Gesamtwertung ein.
 
-- Pro erfülltes Bingo‑Feld: **3 Punkte**
+- Pro erfülltes Bingo‑Feld: **2 Punkte**
 - Pro vollständige Linie (horizontal / vertikal / diagonal): **8 Punkte**
-- Komplettes Bingo (alle Felder): **20 Punkte**
 
 ➡️ Das Bingo hat **spürbaren Einfluss**, überwiegt aber nicht das klassische Tippen.
 
@@ -113,14 +106,7 @@ Die Bingo‑Punkte fließen **zusätzlich** in die normale Gesamtwertung ein.
 |--------|--------|
 | Erste vollständige Linie | **100 €** |
 | Nächste 4 vollständige Linien | **je 50 €** |
-| Erstes komplettes Bingo | **100 €** |
-
-#### Sonderregel: Kein komplettes Bingo
-Sollte **kein Spieler** ein vollständiges Bingo erreichen:
-
-- Die **100 €** werden auf **5 vorher festgelegte Plätze** der Gesamtwertung verteilt
-- **Je 20 € pro Platz**
-- Die betreffenden Platzierungen werden **vor Turnierbeginn festgelegt**
+| Bester Bingospieler (meiste erfüllte Felder) | **100 €** |
 
 ---
 
@@ -128,19 +114,19 @@ Sollte **kein Spieler** ein vollständiges Bingo erreichen:
 
 Die Gesamtwertung umfasst **alle Punkte aus:**
 - Gruppenphase  
-- Gruppensieger  
 - KO‑Phase  
 - Sondertipps  
 - Bingo‑Punkte  
 
-### Auszahlung der Top 10
+### Auszahlung der Top 20
 
 | Platz | Gewinn |
 |------|--------|
-| 1. | **400 €** |
+| 1. | **300 €** |
 | 2. | **200 €** |
-| 3. | **150 €** |
+| 3. | **100 €** |
 | 4.–10. | **je 50 €** |
+| 11.–20. | **je 15 €** |
 | **Summe** | **1.100 €** |
 
 ---
