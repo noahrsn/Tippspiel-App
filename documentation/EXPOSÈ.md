@@ -3,7 +3,7 @@
 ## 1. Einleitung und Motivation
 Die Fußball-Weltmeisterschaft 2026 ist ein globales Großereignis, das traditionell von Tippspielen begleitet wird. Dieses Projekt zielt darauf ab, die klassische Tipprunde durch eine innovative "Bingo-Komponente" und komplexe Zwischenwertungen zu erweitern.
 
-**Neben der akademischen Zielsetzung ist geplant, dieses System tatsächlich produktiv für eine reale Tippgemeinschaft von ca. 200 Personen während der WM 2026 einzusetzen.**
+**Neben der akademischen Zielsetzung ist geplant, dieses System tatsächlich produktiv für eine reale Tippgemeinschaft von ca. 50 bis 400 Personen während der WM 2026 einzusetzen.**
 
 Das Ziel dieses Softwareprojekts ist die Entwicklung eines robusten **Backends**, das die Verwaltung der Teilnehmer, deren Tipps sowie die automatisierte Auswertung von Spielereignissen übernimmt. Im Gegensatz zu Standard-Lösungen stehen hier komplexe, benutzerdefinierte Regeln (z. B. Bingo-Events, gruppierte Zwischengewinne) im Vordergrund, die eine maßgeschneiderte Logik erfordern.
 
@@ -44,61 +44,90 @@ Die Engine berechnet täglich den Punktestand neu.
 * Tracking der zeitlichen Abfolge für Geldgewinne (z. B. "Wer hat die *erste* Linie?").
 
 **C. Finanz-Logik & Zwischenwertungen:**
-* Berechnung der 6 Gruppen-Cluster (z. B. A+B) für die 300 € Zwischengewinne.
-* Verteilung der Bingo-Geldpreise (First Line, etc.) oder Fallback-Verteilung (Top 5 Plätze), falls kein Bingo erreicht wird.
-* Endabrechnung des 1.100 € Haupttopfes (Platz 1–10).
+* Berechnung der 6 Gruppen-Cluster (z. B. A+B) für die dynamischen Zwischengewinne (ca. 16-17 % des Gesamttopfs).
+* Verteilung der Bingo-Geldpreise (First Line, etc.) oder Fallback-Verteilung (Top-Plätze), falls kein Bingo erreicht wird (ca. 20-22 % des Gesamttopfs).
+* Endabrechnung des Haupttopfes für die Gesamtwertung (ca. 60-62 % des Gesamttopfs, dynamisch auf die Top-Plätze verteilt).
 
 ### 3.3 Output
-Das System generiert eine `ranking.json` (oder strukturierte Konsolenausgabe), die das aktuelle Leaderboard, die Finanzstände und den Bingo-Fortschritt anzeigt.
+Das System generiert eine `ranking_current.json` und stellt die Daten über eine REST-API bereit. Die API liefert das aktuelle Leaderboard, die Finanzstände und den Bingo-Fortschritt als JSON.
 
 ---
 
 ## 4. Technische Architektur und Klassendesign
 
-Die Architektur ist bewusst schlank gehalten, trennt aber sauber zwischen **Daten**, **Logik** und **Speicherung**. Dies gewährleistet Übersichtlichkeit und Testbarkeit.
+Die Architektur ist in **fünf klar abgegrenzte Schichten** aufgeteilt. Jede Schicht hat genau eine Verantwortung. Business-Logik ist strikt von I/O, Routing und Domänendaten getrennt. Es gibt keine Konsolenausgabe – die Anwendung startet direkt als Web-Server.
 
-### 4.1 Datenmodelle
-Diese Klassen repräsentieren die Objekte des Spiels. Sie enthalten keine komplexe Logik, sondern nur Daten.
+### 4.1 Schichtenübersicht
 
-* **`User`**: Repräsentiert einen Teilnehmer mit Name, ID, seinem aktuellen Punktestand und dem gewonnenen Preisgeld.
-* **`Tournament`**: Repräsentiert das reale Turnier. Enthält Daten zu Spielen (`Match`), Ergebnissen und eingetretenen Ereignissen.
-* **`Bets`**: Die Tipps eines Users für spezifische Spiele (getipptes Ergebnis), Turnierphasen (getippte K.O.-Runden-Teilnehmer) und Sondertipps.
-* **`Bingo`**: Repräsentiert das 5x5-Feld eines Users sowie den Katalog der möglichen Ereignisse.
-* **`Ranking`**: Repräsentiert das berechnete Leaderboard und den finanziellen Status der Teilnehmer.
+| Schicht | Namespace | Zweck |
+|---|---|---|
+| `Domain/` | `TippspielApp.Domain` | Reine Datenobjekte (DTOs), keinerlei Logik |
+| `Scoring/` | `TippspielApp.Scoring` | Zustandslose Punkt-Evaluatoren |
+| `Finance/` | `TippspielApp.Finance` | Preisgeld-Distributoren |
+| `Application/` | `TippspielApp.Application` | Orchestrierung & HTTP-Routen |
+| `Infrastructure/` | `TippspielApp.Infrastructure` | Datei-I/O & JSON-Serialisierung |
 
-### 4.2 Logik
-Hier findet die eigentliche Berechnung statt. Die Logik wird in überschaubare Services aufgeteilt.
+### 4.2 Klassen im Detail
 
-* **`DataHandler`**: 
-    * Zuständig für Input/Output.
-    * Lädt `users.json` (Tipps) und `tournament_data.json` (Ergebnisse) beim Start.
-    * Speichert das Ranking (`ranking_current.json`) am Ende wieder ab.
-* **`ClassicBetEvaluator`**: 
-    * Die "Mathe-Klasse" für klassische Tipps. Sie vergleicht `Bets` mit `Tournament`-Daten und berechnet die Punkte (0, 2, 3 oder 4).
-    * Berechnet auch Punkte für KO-Runden und Sondertipps.
-* **`BingoEvaluator`**: 
-    * Prüft, ob Ereignisse im Turnier eingetreten sind.
-    * Aktualisiert den Status der `Bingo`-Karten der User.
-    * Erkennt Gewinnmuster (Reihen) und berechnet die Bingo-Punkte.
-* **`FinanceCalculator`**: 
-    * Verwaltet die Töpfe (1.800 € Gesamt).
-    * Berechnet die Zwischengewinne für Gruppen-Cluster und verteilt Bingo-Prämien sowie die Endabrechnung.
-* **`CalculationEngine`**:
-    * Der zentrale Orchestrator, der die Evaluatoren und den FinanceCalculator koordiniert, um das finale Ranking zu erstellen.
+**Domain-Schicht** – Datencontainer ohne Logik:
+* **`TournamentData`**: Turnierdaten (Spiele, Ergebnisse, Events).
+* **`User`** mit `UserBet`, `MatchBet`, `SpecialBet`: Teilnehmer inkl. aller Tipps.
+* **`BingoCard`** / **`BingoCell`**: Das 5×5-Bingo-Feld des Users.
+* **`ScoreSnapshot`**: Basis-Punktestand (TotalPoints, ClassicPoints, BingoPoints, …).
+* **`RankingEntry : ScoreSnapshot`**: Ranglisten-Zeile (erbt Punkte + ergänzt Rank, UserId, Name).
+* **`RankingReport`**, **`FinanceSummary`**, **`PotOverviewEntry`**: Ausgabe-Strukturen.
+
+**Scoring-Schicht** – Zustandslose Evaluatoren mit Vererbung:
+* **`IEvaluator`**: Interface `Evaluate(User, TournamentData)`.
+* **`EvaluatorBase : IEvaluator`**: Abstrakte Basis; stellt `public static CalculateMatchPoints()` bereit.
+* **`ClassicEvaluator`**, **`KnockoutEvaluator`**, **`SpecialBetEvaluator`**: Je ein konkreter Evaluator, alle von `EvaluatorBase`.
+* **`BingoBase`**: Abstrakte Basis mit `public static` Zeitberechnungen und `Lines[]`-Definition.
+* **`BingoEvaluator : BingoBase, IEvaluator`**: Bingo-Karten-Auswertung.
+
+**Finance-Schicht** – Preisgeldverteilung mit Vererbung:
+* **`PotMath`**: Statische Topf-Formeln (`TotalPot`, `BingoPot`, `MainPot`, `Split`, …).
+* **`PrizeDistributorBase`**: Abstrakte Basis mit `AddWin()` Helper.
+* **`ClusterDistributor`**, **`BingoDistributor`**, **`MainPotDistributor`**: Je ein konkreter Distributor.
+
+**Application-Schicht** – Koordination ohne I/O:
+* **`RankingCalculator`**: Startet die Evaluatoren in der richtigen Reihenfolge, sortiert und führt die Finanzberechnung durch.
+* **`WebServer`**: Alle ASP.NET Minimal-API-Routen (`/api/ranking`, `/api/users`, …).
+
+**Infrastructure-Schicht** – Datei-I/O:
+* **`JsonDataStore`**: `LoadUsers()`, `LoadTournamentData()`, `ExportRanking()`.
+* **`UserTemplateBuilder`**: Erzeugt leere User-Vorlage aus Turnierdaten.
 
 ### 4.3 Programmablauf
-Die zentrale Klasse **`CalculationEngine`** steuert den Ablauf ähnlich einem Dirigenten:
 
-1.  **Init:** Der `DataHandler` lädt alle Daten in den Speicher.
-2.  **Calculation:**
-    * Der `ClassicBetEvaluator` aktualisiert die Punkte aller User basierend auf den Spielen.
-    * Der `BingoEvaluator` prüft Ereignisse und aktualisiert den Bingo-Status.
-3.  **Ranking:** Die User-Liste wird nach Punkten sortiert.
-4.  **Payout:** Der `FinanceCalculator` prüft, ob Auszahlungen fällig sind (z.B. Gruppe A+B beendet) und berechnet die Gewinne.
-5.  **Save:** Der neue Status wird über den `DataHandler` exportiert.
+`Program.cs` (4 Zeilen) ruft nur `WebServer.Run(args)` auf. Die eigentliche Pipeline läuft in `RankingCalculator.Run()`:
 
-### 4.4 UML-Klassendiagramm
-![alt text](uml_klassendiagramm.png)
+1. **Reset**: Alle Scores werden auf 0 zurückgesetzt.
+2. **Evaluate**: Die Evaluatoren laufen in Reihenfolge: `ClassicEvaluator → KnockoutEvaluator → SpecialBetEvaluator → BingoEvaluator`.
+3. **Sort**: User-Liste wird nach `TotalPoints` absteigend sortiert.
+4. **Finance**: `ClusterDistributor`, `BingoDistributor`, `MainPotDistributor` berechnen Geldgewinne.
+5. **Export**: `JsonDataStore` speichert das Ergebnis als `ranking_current.json`.
+6. **Response**: Der Web-Server gibt `RankingReport` als JSON zurück.
+
+### 4.4 Vererbungshierarchie
+
+```
+ScoreSnapshot
+  └── RankingEntry
+
+IEvaluator
+  └── EvaluatorBase
+        ├── ClassicEvaluator
+        ├── KnockoutEvaluator
+        └── SpecialBetEvaluator
+
+BingoBase
+  └── BingoEvaluator  (implementiert auch IEvaluator)
+
+PrizeDistributorBase
+  ├── ClusterDistributor
+  ├── BingoDistributor   (nutzt BingoBase.static – kein Mehrfach-Erben nötig)
+  └── MainPotDistributor
+```
 
 ---
 
@@ -108,7 +137,7 @@ Die zentrale Klasse **`CalculationEngine`** steuert den Ablauf ähnlich einem Di
 * Definition der JSON-Schemata für Tipps und Match-Daten.
 * Implementierung der Punkte-Logik (Gruppenphase & KO-System).
 * Implementierung der Bingo-Matrix-Auswertung.
-* **Ziel:** Erfolgreicher Run eines Test-Cases via Konsole mit JSON-Input.
+* **Ziel:** Erfolgreicher Run eines Test-Cases via Web-API mit JSON-Input und -Output.
 
 ### Phase 2: Erweiterte Logik (Pflichtteil)
 * Implementierung der Geld-Gewinnverteilung (Zwischengewinne & Haupttopf).

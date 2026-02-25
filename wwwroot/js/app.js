@@ -386,24 +386,50 @@ function renderRanking() {
     'Letzte Berechnung: ' + d.toLocaleDateString('de-DE') + ' ' + d.toLocaleTimeString('de-DE');
 
   const fs = ranking.FinanceSummary;
+  const isFinalized = ranking.IsMainPotFinalized ?? false;
 
   // Stats overview
   document.getElementById('stat-grid').innerHTML = `
     <div class="stat-card"><div class="value">${ranking.Leaderboard.length}</div><div class="label">Tipper gesamt</div></div>
     <div class="stat-card"><div class="value">${fs.TotalPot.toLocaleString('de-DE')} &euro;</div><div class="label">Gesamttopf</div></div>
     <div class="stat-card"><div class="value">${fs.DistributedAmount.toLocaleString('de-DE')} &euro;</div><div class="label">Ausgesch&uuml;ttet</div></div>
-    <div class="stat-card"><div class="value">${fs.RemainingAmount.toLocaleString('de-DE')} &euro;</div><div class="label">Verbleibend</div></div>
+    <div class="stat-card"><div class="value">${fs.RemainingAmount.toLocaleString('de-DE')} &euro;</div><div class="label">Noch offen</div></div>
     <div class="stat-card"><div class="value">${ranking.GroupClusterResults.length}</div><div class="label">Cluster abgerechnet</div></div>
     <div class="stat-card"><div class="value">${ranking.BingoPotResults.length}</div><div class="label">Bingo-T&ouml;pfe</div></div>
   `;
 
-  // Leaderboard
+  // ── Leaderboard ────────────────────────────────────────────────────────
   const medalFor = i => i === 0 ? '<span class="rank-medal">&#127947;</span>' :
                          i === 1 ? '<span class="rank-medal">&#129352;</span>' :
                          i === 2 ? '<span class="rank-medal">&#129353;</span>' : '';
-  let lb = '<table><thead><tr><th>Platz</th><th>Name</th><th>Gesamt</th><th>Klassik</th><th>K.O.</th><th>Bingo</th><th>Bingo-Felder</th><th>Bingo-Linien</th><th>Preisgeld</th><th>Gewonnene T&ouml;pfe</th></tr></thead><tbody>';
+
+  // Helper: Topf-Badge mit Farbe je nach Kategorie
+  function potBadge(label) {
+    if (label.startsWith('Gruppencluster')) {
+      return `<span class="badge badge-green" title="Endg\u00fcltig ausgezahlt">${esc(label)}</span>`;
+    } else if (label.startsWith('Bingo')) {
+      return `<span class="badge badge-purple" title="Endg\u00fcltig ausgezahlt">${esc(label)}</span>`;
+    } else {
+      // Gesamtwertung – nur Zwischenstand wenn noch nicht finalisiert
+      const suffix = isFinalized ? '' : ' <em style="font-size:.7rem;">(Zwischenstand)</em>';
+      return `<span class="badge badge-orange">${esc(label)}${suffix}</span>`;
+    }
+  }
+
+  let interimNotice = '';
+  if (!isFinalized) {
+    interimNotice = `<div class="interim-notice">
+      &#9888; <strong>Zwischenstand</strong> &ndash; Die Preisgelder der Gesamtwertung
+      (Haupttopf) werden erst nach Turnierende endg&uuml;ltig ausgezahlt.
+      Gruppencluster- und Bingo-Gewinne sind bereits fest.
+    </div>`;
+  }
+
+  let lb = interimNotice + '<table><thead><tr><th>Platz</th><th>Name</th><th>Gesamt</th><th>Klassik</th><th>K.O.</th><th>Bingo</th><th>Bingo-Felder</th><th>Bingo-Linien</th><th>Preisgeld</th><th>Gewonnene T&ouml;pfe</th></tr></thead><tbody>';
   ranking.Leaderboard.forEach((e, i) => {
-    const pots = e.WonPots.length ? e.WonPots.map(p => '<span class="badge badge-green">'+esc(p)+'</span>').join(' ') : '<span style="color:var(--muted)">–</span>';
+    const pots = e.WonPots.length
+      ? e.WonPots.map(p => potBadge(p)).join(' ')
+      : '<span style="color:var(--muted)">–</span>';
     lb += `<tr>
       <td><strong>${e.Rank}</strong> ${medalFor(i)}</td>
       <td><strong>${esc(e.Name)}</strong> <small style="color:var(--muted)">${esc(e.UserId)}</small></td>
@@ -420,52 +446,79 @@ function renderRanking() {
   lb += '</tbody></table>';
   document.getElementById('leaderboard-wrap').innerHTML = lb;
 
-  // Group cluster results
-  let cl = '<table><thead><tr><th>Gruppen-Cluster</th><th>Gewinner</th><th>Punkte</th><th>Gewinn</th><th>Geteilt?</th></tr></thead><tbody>';
+  // ── Gruppen-Cluster ────────────────────────────────────────────────────
+  let cl;
   if (!ranking.GroupClusterResults.length) {
     cl = '<div class="empty-state">Noch keine Gruppen vollst&auml;ndig abgeschlossen.</div>';
   } else {
+    cl = '<table><thead><tr><th>Gruppen-Cluster</th><th>Gewinner</th><th>Punkte</th><th>Gewinn</th><th>Geteilt?</th><th>Status</th></tr></thead><tbody>';
     ranking.GroupClusterResults.forEach(r => {
       cl += `<tr>
         <td><strong>${esc(r.ClusterLabel)}</strong></td>
         <td>${esc(r.WinnerName)}</td>
         <td>${r.WinnerClusterPoints} Pkt</td>
         <td><strong style="color:var(--success)">${r.Prize.toLocaleString('de-DE')} &euro;</strong></td>
-        <td>${r.IsShared ? '<span class="badge badge-blue">Ja – '+esc(r.CoWinners.join(', '))+'</span>' : 'Nein'}</td>
+        <td>${r.IsShared ? '<span class="badge badge-blue">Ja &ndash; '+esc(r.CoWinners.join(', '))+'</span>' : 'Nein'}</td>
+        <td><span class="badge badge-green">&#10003; Endg&uuml;ltig</span></td>
       </tr>`;
     });
     cl += '</tbody></table>';
   }
   document.getElementById('cluster-wrap').innerHTML = cl;
 
-  // Bingo pots
-  let bp = '<table class="pot-table"><thead><tr><th>Topf</th><th>Gewinner</th><th>Preisgeld</th></tr></thead><tbody>';
-  if (!ranking.BingoPotResults.length) {
-    bp = '<div class="empty-state">Noch kein Bingo-Topf ausgesch&uuml;ttet.</div>';
-  } else {
-    ranking.BingoPotResults.forEach(r => {
+  // ── Bingo-Topf-Übersicht ───────────────────────────────────────────────
+  const overview = ranking.BingoPotOverview || [];
+  const awarded  = overview.filter(e => e.IsAwarded);
+  const open     = overview.filter(e => !e.IsAwarded);
+
+  let bp = '';
+
+  if (awarded.length) {
+    bp += `<div class="section-title" style="margin-bottom:.6rem;">&#10003; Bereits vergeben</div>
+      <table><thead><tr><th>Topf</th><th>Gewinner</th><th>Preisgeld</th></tr></thead><tbody>`;
+    awarded.forEach(e => {
       bp += `<tr>
-        <td>${esc(r.PotLabel)}</td>
-        <td>${esc(r.WinnerName)} <small style="color:var(--muted)">${esc(r.WinnerUserId)}</small></td>
-        <td>${r.Prize.toLocaleString('de-DE')} &euro;</td>
+        <td><span class="badge badge-green">${esc(e.PotLabel)}</span></td>
+        <td>${esc(e.WinnerName)} <small style="color:var(--muted)">${esc(e.WinnerUserId)}</small></td>
+        <td><strong style="color:var(--success)">${e.Prize.toLocaleString('de-DE')} &euro;</strong></td>
       </tr>`;
     });
     bp += '</tbody></table>';
   }
+
+  if (open.length) {
+    bp += `<div class="section-title" style="margin-top:1.2rem;margin-bottom:.6rem;">&#10008; Noch offen</div>
+      <table><thead><tr><th>Topf</th><th>Preisgeld</th><th>Status</th></tr></thead><tbody>`;
+    open.forEach(e => {
+      bp += `<tr>
+        <td>${esc(e.PotLabel)}</td>
+        <td><strong style="color:var(--accent)">${e.Prize.toLocaleString('de-DE')} &euro;</strong></td>
+        <td><span class="badge badge-orange">Ausstehend</span></td>
+      </tr>`;
+    });
+    bp += '</tbody></table>';
+  }
+
+  if (!bp) {
+    bp = '<div class="empty-state">Bitte Auswertung starten.</div>';
+  }
   document.getElementById('bingo-pots-wrap').innerHTML = bp;
 
-  // Finance summary
+  // ── Finanzübersicht ────────────────────────────────────────────────────
   let fin = `<div class="section-title">Finanz&uuml;bersicht</div>
     <table><thead><tr><th>Posten</th><th>Betrag</th></tr></thead><tbody>
     <tr><td>Gesamttopf</td><td><strong>${fs.TotalPot.toLocaleString('de-DE')} &euro;</strong></td></tr>
-    <tr><td>Ausgesch&uuml;ttet</td><td style="color:var(--success)"><strong>${fs.DistributedAmount.toLocaleString('de-DE')} &euro;</strong></td></tr>
-    <tr><td>Verbleibend</td><td style="color:var(--accent)"><strong>${fs.RemainingAmount.toLocaleString('de-DE')} &euro;</strong></td></tr>
+    <tr><td>Bereits ausgesch&uuml;ttet</td><td style="color:var(--success)"><strong>${fs.DistributedAmount.toLocaleString('de-DE')} &euro;</strong></td></tr>
+    <tr><td>Noch offen (inkl. Bingo &amp; Haupttopf)</td><td style="color:var(--accent)"><strong>${fs.RemainingAmount.toLocaleString('de-DE')} &euro;</strong></td></tr>
     </tbody></table>`;
 
   if (fs.UnclaimedPots?.length) {
-    fin += `<div class="section-title" style="margin-top:1.2rem;">Noch nicht ausgesch&uuml;ttet</div><ul style="padding-left:1.2rem;line-height:2;">`;
-    fs.UnclaimedPots.forEach(p => { fin += `<li style="color:var(--muted)">${esc(p)}</li>`; });
-    fin += '</ul>';
+    fin += `<div class="section-title" style="margin-top:1.2rem;">Noch nicht ausgesch&uuml;ttet</div>
+      <table><thead><tr><th>Topf / Grund</th></tr></thead><tbody>`;
+    fs.UnclaimedPots.forEach(p => {
+      fin += `<tr><td style="color:var(--muted)">${esc(p)}</td></tr>`;
+    });
+    fin += '</tbody></table>';
   }
   document.getElementById('finance-wrap').innerHTML = fin;
 }

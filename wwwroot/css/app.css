@@ -123,6 +123,15 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: var(
 .badge-gold   { background: #422006; color: #fbbf24; }
 .badge-silver { background: #1e293b; color: #94a3b8; }
 .badge-green  { background: #14532d; color: var(--success); }
+.badge-purple { background: #3b1f6e; color: #c4b5fd; }
+.badge-orange { background: #431407; color: #fb923c; }
+
+/* Zwischenstand-Hinweis */
+.interim-notice {
+  background: #422006; border: 1px solid #fb923c; color: #fdba74;
+  border-radius: var(--radius); padding: .65rem 1rem;
+  font-size: .85rem; margin-bottom: 1rem;
+}
 
 /* Toast */
 #toast {

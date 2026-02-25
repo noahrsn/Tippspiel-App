@@ -19,33 +19,66 @@ This project is a C# .NET 10 backend application designed to manage a complex pr
 
 ## 2. Architecture & Design Principles
 
-The application follows a clean, modular architecture separating data models, business logic, and data access.
+The application follows a clean, layered architecture. Each layer has exactly one responsibility. Business logic is strictly separated from I/O, routing and domain data.
 
-### 2.1 Core Components
+### 2.1 Layer Overview
 
-*   **Models (`src/Models/`):** Pure data transfer objects (DTOs). They should contain minimal to no business logic.
-    *   `User.cs`: Represents a participant, their bets, bingo card, current score, and winnings.
-    *   `Tournament.cs`: Represents the real-world tournament data (matches, results, events).
-    *   `Bets.cs`: Represents the user's predictions (match scores, KO stage teams, special bets).
-    *   `Bingo.cs`: Represents the 5x5 Bingo card and the catalog of possible events.
-    *   `Ranking.cs`: Represents the calculated leaderboard and financial status.
-*   **Services (`src/Services/`):** The core business logic.
-    *   `CalculationEngine.cs`: The orchestrator. It coordinates the evaluation of bets, bingo, and finances.
-    *   `ClassicBetEvaluator.cs`: Calculates points for match predictions, KO stages, and special bets.
-    *   `BingoEvaluator.cs`: Checks real-world events against user bingo cards, updates card status, and calculates bingo points.
-    *   `FinanceCalculator.cs`: Manages the prize pool (1.800 €), calculates group-stage intermediate winnings, bingo prizes, and the final leaderboard payouts.
-    *   `DataHandler.cs`: Handles reading from and writing to JSON files.
-*   **Data (`Data/`):**
-    *   `Input/users.json`: The source of truth for user predictions.
-    *   `Input/tournament_data.json`: The source of truth for real-world tournament results and events.
-    *   `Output/ranking_current.json`: The generated output file containing the current standings.
+```
+src/
+  Program.cs             ← 4 lines – entry point only
 
-### 2.2 Design Guidelines
+  Domain/                ← Pure data classes (DTOs), no logic
+    Tournament.cs        ← TournamentData, MatchResult, TeamInfo, BingoEventInfo
+    User.cs              ← User, UserBet, MatchBet, SpecialBet
+    BingoCard.cs         ← BingoCard, BingoCell
+    ScoreSnapshot.cs     ← Basis-Punktestand (wird von RankingEntry geerbt)
+    RankingEntry.cs      ← RankingEntry : ScoreSnapshot
+    RankingReport.cs     ← RankingReport, FinanceSummary
+    PotResults.cs        ← GroupClusterResult, BingoPotResult, PotOverviewEntry
 
-*   **Stateless Services:** Services should ideally be stateless. Pass the necessary data (Users, Tournament data) into the evaluation methods.
-*   **Immutability (where practical):** Treat input data (`users.json`, `tournament_data.json`) as read-only during the calculation phase. Generate a new `Ranking` object as output.
-*   **Testability:** The logic must be highly testable. The separation of concerns (Evaluators vs. DataHandler) is crucial for unit testing the calculation logic with mock data.
-*   **JSON First:** The system relies heavily on JSON for input and output. Ensure robust serialization and deserialization using `System.Text.Json`.
+  Scoring/               ← Stateless point evaluators
+    IEvaluator.cs        ← interface: Evaluate(User, TournamentData)
+    EvaluatorBase.cs     ← abstract: CalculateMatchPoints() (shared utility)
+    ClassicEvaluator.cs  ← : EvaluatorBase – Gruppenspiel-Punkte
+    KnockoutEvaluator.cs ← : EvaluatorBase – KO-Runden-Punkte
+    SpecialBetEvaluator.cs ← : EvaluatorBase – Weltmeister/Torschütze
+    BingoBase.cs         ← abstract: Lines[] (4×4, 10 Linien), Zeitberechnungen (public static)
+    BingoEvaluator.cs    ← : BingoBase, IEvaluator – Bingo-Punkte
+
+  Finance/               ← Prize money distributors
+    PotMath.cs           ← static: alle Topf-Formeln (TotalPot, BingoPot, …)
+    PrizeDistributorBase.cs ← abstract: AddWin() helper
+    ClusterDistributor.cs ← : PrizeDistributorBase
+    BingoDistributor.cs  ← : PrizeDistributorBase (nutzt BingoBase statisch)
+    MainPotDistributor.cs ← : PrizeDistributorBase
+
+  Application/           ← Orchestration & HTTP routing, no I/O
+    RankingCalculator.cs ← Run(): Scores → sort → finance → report
+    WebServer.cs         ← alle ASP.NET Minimal-API-Routen
+
+  Infrastructure/        ← File I/O & JSON serialization
+    JsonDataStore.cs     ← LoadUsers(), LoadTournamentData(), ExportRanking()
+    UserTemplateBuilder.cs ← CreateEmpty(TournamentData)
+```
+
+### 2.2 Inheritance Hierarchy
+
+| Base | Derived classes |
+|---|---|
+| `ScoreSnapshot` | `RankingEntry` |
+| `EvaluatorBase : IEvaluator` | `ClassicEvaluator`, `KnockoutEvaluator`, `SpecialBetEvaluator` |
+| `BingoBase` | `BingoEvaluator` |
+| `PrizeDistributorBase` | `ClusterDistributor`, `BingoDistributor`, `MainPotDistributor` |
+
+`BingoDistributor` does **not** inherit `BingoBase` (C# single inheritance). Instead, `BingoBase` exposes its time-helper methods as `public static`, allowing `BingoDistributor` to call them directly.
+
+### 2.3 Design Guidelines
+
+*   **Stateless evaluators:** every `IEvaluator` receives data through parameters and writes results to `user.CurrentScore`. No instance state.
+*   **Single Responsibility:** `ClassicEvaluator` only calculates match points; `SpecialBetEvaluator` only calculates special bet points. `RankingCalculator` runs them in sequence.
+*   **Namespace = Layer:** `TippspielApp.Domain`, `TippspielApp.Scoring`, `TippspielApp.Finance`, `TippspielApp.Application`, `TippspielApp.Infrastructure`.
+*   **JSON First:** `System.Text.Json` config lives only in `JsonDataStore`. Property names in Domain classes must not change (they define the JSON contract).
+*   **Console mode removed:** The application starts as a web server only (`WebServer.Run(args)`).
 
 ---
 
@@ -53,17 +86,17 @@ The application follows a clean, modular architecture separating data models, bu
 
 When implementing logic, pay special attention to these specific rules defined in `RULES.md`:
 
-### 3.1 Classic Betting (`ClassicBetEvaluator`)
+### 3.1 Classic Betting (`ClassicEvaluator`, `KnockoutEvaluator`, `SpecialBetEvaluator`)
 *   **Match Points:** Exact (4 pts), Goal Difference/Draw (3 pts), Tendency (2 pts), Wrong (0 pts).
 *   **KO Stage:** Users predict teams reaching specific rounds *independently* of the actual tournament tree. A team can only score *once* per round.
 *   **Special Bets:** World Champion (20 pts), Top Scorer (20 pts). *Tie-breaker for Top Scorer: The first named player counts.*
 
-### 3.2 Bingo (`BingoEvaluator`)
-*   **The Free Space:** The center square (index 12 in a 0-indexed 1D array, or [2,2] in a 2D array) is a "FREE" space and is *always* considered fulfilled.
-*   **Event Triggering:** An event is fulfilled if it happens *at least once* during the tournament.
-*   **Points:** 2 pts per fulfilled field, 8 pts per completed line (horizontal, vertical, diagonal). *Note: The 20 pts for a full board were removed.*
+### 3.2 Bingo (`BingoEvaluator`, `BingoBase`)
+*   **Grid:** 4×4 (16 cells, positions 0–15). There is **no FREE field** – all 16 cells are event fields.
+    *   **Event Triggering:** An event is fulfilled if it happens *at least once* during the tournament.
+    *   **Points:** 3 pts per fulfilled field. Line points are tiered: 1st completed line = 10 pts, 2nd = 6 pts, 3rd = 4 pts, further lines = 0 pts. *Note: The 20 pts for a full board were removed.*
 
-### 3.3 Finance & Payouts (`FinanceCalculator`)
+### 3.3 Finance & Payouts (`PotMath`, `ClusterDistributor`, `BingoDistributor`, `MainPotDistributor`)
 *   **Total Pool:** 1.800 € (1.100 € Overall, 300 € Group Stages, 400 € Bingo).
 *   **Group Stage Clusters:** 6 clusters (A+B, C+D, E+F, G+H, I+J, K+L). 50 € to the user with the most points *from match predictions only* within that specific cluster.
 *   **Bingo Prizes:** 1st Line (100 €), Next 4 Lines (50 € each), Best Bingo Player / Most Fields (100 €). *Note: The prize for a full bingo board was replaced by "Best Bingo Player".*
@@ -76,7 +109,7 @@ When implementing logic, pay special attention to these specific rules defined i
 
 When asked to implement a feature or fix a bug, follow this general workflow:
 
-1.  **Understand the Goal:** Read the user prompt carefully. Identify which component (Models, Evaluators, DataHandler) needs modification.
+1.  **Understand the Goal:** Read the user prompt carefully. Identify which layer (`Domain`, `Scoring`, `Finance`, `Application`, `Infrastructure`) needs modification.
 2.  **Consult the Rules:** Verify the requested change against `Documentation/RULES.md`. If there's a discrepancy, ask the user for clarification or follow the explicit instructions in the prompt if they override the rules.
 3.  **Locate the Code:** Use file search or semantic search to find the relevant classes and methods.
 4.  **Implement the Change:**
@@ -87,7 +120,7 @@ When asked to implement a feature or fix a bug, follow this general workflow:
 
 ### Common Agent Tasks:
 *   **Scaffolding:** Creating the initial class structures based on the `EXPOSÈ.md` and `RULES.md`.
-*   **Implementing Evaluators:** Writing the complex logic in `ClassicBetEvaluator`, `BingoEvaluator`, and `FinanceCalculator`.
+*   **Implementing Evaluators:** Writing the complex logic in `ClassicEvaluator`, `KnockoutEvaluator`, `SpecialBetEvaluator`, `BingoEvaluator`, and the Finance distributors.
 *   **JSON Serialization:** Setting up the `System.Text.Json` attributes and configurations to correctly parse the input files.
 *   **Debugging:** Finding logical errors in the point calculation or prize distribution.
 
