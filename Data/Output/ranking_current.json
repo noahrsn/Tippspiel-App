@@ -1,10 +1,10 @@
 {
-  "GeneratedAt": "2026-02-24T23:47:27.739037Z",
+  "GeneratedAt": "2026-02-25T13:12:48.3538489Z",
   "Leaderboard": [
     {
       "Rank": 1,
-      "UserId": "USR-001",
-      "Name": "Noah Roosen",
+      "UserId": "USR-002",
+      "Name": "Lena M\u00FCller",
       "TotalPoints": 2,
       "ClassicPoints": 0,
       "KnockoutPoints": 0,
@@ -15,14 +15,131 @@
       "WonPots": [
         "Bingo: Bester Bingospieler - meiste Felder (100 EUR)"
       ]
+    },
+    {
+      "Rank": 2,
+      "UserId": "USR-003",
+      "Name": "Jonas Weber",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 3,
+      "UserId": "USR-004",
+      "Name": "Anna Schneider",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 4,
+      "UserId": "USR-005",
+      "Name": "Felix Fischer",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 5,
+      "UserId": "USR-006",
+      "Name": "Laura Becker",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 6,
+      "UserId": "USR-007",
+      "Name": "Tim Hoffmann",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 7,
+      "UserId": "USR-008",
+      "Name": "Sophie Wagner",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 8,
+      "UserId": "USR-009",
+      "Name": "Maximilian Braun",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 9,
+      "UserId": "USR-010",
+      "Name": "Julia Koch",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
+    },
+    {
+      "Rank": 10,
+      "UserId": "USR-011",
+      "Name": "Lukas Richter",
+      "TotalPoints": 2,
+      "ClassicPoints": 0,
+      "KnockoutPoints": 0,
+      "BingoPoints": 2,
+      "FulfilledBingoCells": 1,
+      "CompletedBingoLines": 0,
+      "TotalFinancialWinnings": 0,
+      "WonPots": []
     }
   ],
   "GroupClusterResults": [],
   "BingoPotResults": [
     {
       "PotLabel": "Bester Bingospieler (meiste Felder)",
-      "WinnerUserId": "USR-001",
-      "WinnerName": "Noah Roosen",
+      "WinnerUserId": "USR-002",
+      "WinnerName": "Lena M\u00FCller",
       "Prize": 100
     }
   ],

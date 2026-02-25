@@ -104,6 +104,24 @@ namespace TippspielApp
                 return Results.Json(UserTemplate.CreateEmpty(tourney), jsonOpts);
             });
 
+            // GET /api/tournament-datasets  – listet verfügbare Turnierdaten-Dateien
+            app.MapGet("/api/tournament-datasets", () =>
+            {
+                string inputDir = Path.Combine(projectRoot, "Data", "Input");
+                var files = Directory.GetFiles(inputDir, "tournament_data*.json")
+                    .Select(f =>
+                    {
+                        string name = Path.GetFileNameWithoutExtension(f);
+                        string key  = name == "tournament_data" ? "" : name["tournament_data_".Length..];
+                        string label = string.IsNullOrEmpty(key)
+                            ? "Standard (live)"
+                            : char.ToUpper(key[0]) + key[1..].Replace("_", " ");
+                        return new { Key = key, Label = label };
+                    })
+                    .OrderBy(x => x.Key.Length);
+                return Results.Json(files, jsonOpts);
+            });
+
             // GET /api/ranking  – liest gespeichertes Ranking
             app.MapGet("/api/ranking", () =>
             {
@@ -113,11 +131,20 @@ namespace TippspielApp
             });
 
             // POST /api/ranking/recalculate  – berechnet neu und speichert
-            app.MapPost("/api/ranking/recalculate", () =>
+            // Query-Parameter: ?dataset=test  (leer = Standard)
+            app.MapPost("/api/ranking/recalculate", (HttpContext ctx) =>
             {
+                string datasetKey = ctx.Request.Query["dataset"].FirstOrDefault() ?? "";
+                string tdPath = string.IsNullOrEmpty(datasetKey)
+                    ? tourneyPath
+                    : Path.Combine(projectRoot, "Data", "Input", $"tournament_data_{datasetKey}.json");
+
+                if (!File.Exists(tdPath))
+                    return Results.NotFound($"Datensatz '{datasetKey}' nicht gefunden.");
+
                 var dh = new DataHandler();
                 var users  = dh.LoadUsers(usersPath);
-                var td     = dh.LoadTournamentData(tourneyPath);
+                var td     = dh.LoadTournamentData(tdPath);
                 var report = new CalculationEngine().RunDailyCalculation(users, td);
                 dh.ExportRanking(report, rankingPath);
                 return Results.Json(report, jsonOpts);

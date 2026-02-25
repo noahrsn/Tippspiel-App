@@ -14,9 +14,24 @@ async function init() {
   try {
     [tourney, users] = await Promise.all([fetchJSON('/api/tournament'), fetchJSON('/api/users')]);
     renderUserList();
+    loadDatasets();
     tryLoadRanking();
   } catch(e) { showToast('Fehler beim Laden: ' + e.message, true); }
   hideSpinner();
+}
+
+async function loadDatasets() {
+  try {
+    const datasets = await fetchJSON('/api/tournament-datasets');
+    const sel = document.getElementById('dataset-select');
+    sel.innerHTML = '';
+    datasets.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.Key;
+      opt.textContent = d.Label;
+      sel.appendChild(opt);
+    });
+  } catch(_) { /* Fallback: keep static default option */ }
 }
 
 async function tryLoadRanking() {
@@ -351,11 +366,14 @@ async function deleteUser(id, name) {
 async function recalculate() {
   showSpinner();
   try {
-    const resp = await fetch('/api/ranking/recalculate', { method: 'POST' });
+    const datasetKey = document.getElementById('dataset-select')?.value ?? '';
+    const url = '/api/ranking/recalculate' + (datasetKey ? '?dataset=' + encodeURIComponent(datasetKey) : '');
+    const resp = await fetch(url, { method: 'POST' });
     if (!resp.ok) throw new Error(await resp.text());
     ranking = await resp.json();
     renderRanking();
-    showToast('Auswertung berechnet!');
+    const label = document.getElementById('dataset-select')?.selectedOptions[0]?.textContent ?? '';
+    showToast('Auswertung berechnet' + (label ? ' (' + label + ')' : '') + '!');
   } catch(e) { showToast('Fehler: ' + e.message, true); }
   hideSpinner();
 }

@@ -111,7 +111,13 @@
 
     <div class="calc-bar">
       <span class="last-calc" id="last-calc-time"></span>
-      <button class="btn btn-primary" onclick="recalculate()">&#9654; Neu berechnen</button>
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+        <label for="dataset-select" style="font-size:.85rem;color:var(--muted);white-space:nowrap;">Datensatz:</label>
+        <select id="dataset-select" class="dataset-select">
+          <option value="">Standard (live)</option>
+        </select>
+        <button class="btn btn-primary" onclick="recalculate()">&#9654; Neu berechnen</button>
+      </div>
     </div>
 
     <!-- Stats summary -->
