@@ -82,7 +82,7 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: var(
 .match-bet .score-input { text-align: center; }
 
 /* Bingo */
-.bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 900px; }
+.bingo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 720px; }
 .bingo-cell {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: var(--radius); padding: .5rem;
@@ -175,3 +175,109 @@ input:focus, select:focus { outline: 2px solid var(--accent); border-color: var(
   min-width: 190px;
 }
 .dataset-select:focus { outline: none; border-color: var(--accent); }
+
+/* ── Login overlay ────────────────────────────────────────────────────── */
+#login-overlay {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10000; padding: 1rem;
+}
+.login-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 2.5rem 2rem; max-width: 420px; width: 100%; text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+.login-logo { font-size: 2.5rem; color: var(--accent); font-weight: 800; margin-bottom: .3rem; }
+.login-title { font-size: 1.3rem; font-weight: 700; margin-bottom: .4rem; }
+.login-sub { font-size: .875rem; color: var(--muted); margin-bottom: 1.5rem; }
+.login-input {
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+  border-radius: var(--radius); padding: .65rem 1rem; font-size: 1rem;
+  width: 100%; margin-bottom: .8rem; text-align: center;
+}
+.login-input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.login-dataset-select {
+  background: var(--surface2); border: 1px solid var(--border); color: var(--muted);
+  border-radius: var(--radius); padding: .4rem .75rem; font-size: .8rem;
+  width: 100%; margin-bottom: .8rem; text-align: center; cursor: pointer;
+  opacity: .85;
+}
+.login-dataset-select:focus { outline: 1px solid var(--accent); border-color: var(--accent); opacity: 1; color: var(--text); }
+.login-btn { width: 100%; padding: .7rem; font-size: 1rem; }
+.login-error {
+  background: #450a0a; border: 1px solid var(--danger); color: #fca5a5;
+  border-radius: var(--radius); padding: .6rem .9rem; font-size: .85rem; margin-top: .8rem;
+}
+
+/* ── Lock banner & save bar ───────────────────────────────────────────── */
+.lock-banner {
+  background: #422006; border: 1px solid #fb923c; color: #fdba74;
+  border-radius: var(--radius); padding: .75rem 1rem; font-size: .875rem;
+  margin-bottom: 1rem; display: flex; gap: .5rem; align-items: center;
+}
+.my-save-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #14532d; border: 1px solid var(--success); color: #86efac;
+  border-radius: var(--radius); padding: .6rem 1rem; margin-bottom: 1rem; flex-wrap: wrap; gap: .5rem;
+}
+
+/* ── Points badges (read-only tips view) ─────────────────────────────── */
+.pts-badge {
+  display: inline-block; padding: .15rem .5rem; border-radius: 20px;
+  font-size: .75rem; font-weight: 700;
+}
+.pts-exact { background: #166534; color: #86efac; }
+.pts-ok    { background: #1e3a5f; color: var(--accent); }
+.pts-zero  { background: #1c1917; color: var(--muted); border: 1px solid var(--border); }
+
+/* ── Read-only match row ──────────────────────────────────────────────── */
+.match-ro-header {
+  display: grid;
+  grid-template-columns: 1fr 70px 70px 48px 1fr;
+  gap: .4rem; padding: .25rem .2rem;
+  font-size: .72rem; color: var(--muted); font-weight: 600;
+  border-bottom: 1px solid var(--border); margin-bottom: .15rem;
+}
+.match-ro {
+  display: grid;
+  grid-template-columns: 1fr 70px 70px 48px 1fr;
+  align-items: center; gap: .4rem; padding: .35rem .2rem;
+  border-bottom: 1px solid var(--border); font-size: .875rem;
+}
+.ro-home  { text-align: right; }
+.ro-away  { text-align: left; }
+.ro-score { text-align: center; white-space: nowrap; }
+.ro-pts   { text-align: center; }
+.ro-col-label  { text-align: center; }
+.ro-home-label { text-align: right; }
+.ro-away-label { text-align: left; }
+
+/* ── KO team chip read-only ───────────────────────────────────────────── */
+.team-chip-ro {
+  padding: .3rem .7rem; border-radius: 20px; border: 1px solid var(--border);
+  font-size: .78rem; user-select: none; background: var(--surface2); color: var(--text);
+  display: inline-flex; align-items: center; gap: .25rem;
+}
+.chip-correct { background: #14532d; border-color: var(--success); color: #86efac; }
+.chip-wrong   { background: #450a0a; border-color: var(--danger);  color: #fca5a5; }
+.chip-actual  { background: #1e3a5f; border-color: var(--accent);  color: var(--accent); }
+
+/* ── Bingo card read-only ─────────────────────────────────────────────── */
+.fulfilled-cell   { background: #14532d !important; border-color: var(--success) !important; }
+.unfulfilled-cell { background: var(--surface2); opacity: .8; }
+.bingo-pts-badge {
+  display: block; margin-top: .3rem; font-size: .7rem; font-weight: 700;
+  color: var(--success); text-align: center;
+}
+.bingo-open-badge {
+  display: block; margin-top: .3rem; font-size: .7rem;
+  color: var(--muted); text-align: center;
+}
+
+/* ── Leaderboard: highlight current user ─────────────────────────────── */
+tr.my-row td { background: #0c2340 !important; }
+tr.my-row:hover td { background: #0d2d52 !important; }
+
+/* ── Misc ─────────────────────────────────────────────────────────────── */
+.muted-txt { color: var(--muted); }
+

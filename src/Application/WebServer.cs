@@ -63,13 +63,49 @@ namespace TippspielApp.Application
             string tourneyPath,
             string rankingPath)
         {
-            // GET /api/tournament
-            app.MapGet("/api/tournament", () =>
-                Results.Content(File.ReadAllText(tourneyPath, System.Text.Encoding.UTF8), "application/json"));
+            // GET /api/tournament?dataset=vor_turnier|nach_gruppe|nach_turnier
+            app.MapGet("/api/tournament", (HttpContext ctx) =>
+            {
+                string datasetKey = ctx.Request.Query["dataset"].FirstOrDefault() ?? "";
+                string tdPath = string.IsNullOrEmpty(datasetKey)
+                    ? tourneyPath  // legacy fallback
+                    : Path.Combine(root, "Data", "Input", $"tournament_data_{datasetKey}.json");
+
+                // Fallback-Kette: gesuchte Datei → vor_turnier → erste vorhandene
+                if (!File.Exists(tdPath))
+                    tdPath = Path.Combine(root, "Data", "Input", "tournament_data_vor_turnier.json");
+                if (!File.Exists(tdPath))
+                    tdPath = Directory.GetFiles(Path.Combine(root, "Data", "Input"), "tournament_data*.json")
+                                      .OrderBy(f => f).FirstOrDefault() ?? tdPath;
+                if (!File.Exists(tdPath))
+                    return Results.NotFound("Turnierdaten nicht gefunden.");
+
+                return Results.Content(File.ReadAllText(tdPath, System.Text.Encoding.UTF8), "application/json");
+            });
 
             // GET /api/users
             app.MapGet("/api/users", () =>
                 Results.Content(File.ReadAllText(usersPath, System.Text.Encoding.UTF8), "application/json"));
+
+            // GET /api/users/lookup?q=... – sucht per Name (case-insensitiv) oder UserId
+            app.MapGet("/api/users/lookup", (HttpContext ctx) =>
+            {
+                string q = (ctx.Request.Query["q"].FirstOrDefault() ?? "").Trim();
+                if (string.IsNullOrEmpty(q))
+                    return Results.BadRequest("Parameter 'q' fehlt");
+
+                var allUsers = JsonSerializer.Deserialize<List<User>>(
+                    File.ReadAllText(usersPath, System.Text.Encoding.UTF8), JsonOpts) ?? [];
+
+                var found = allUsers.FirstOrDefault(u =>
+                    string.Equals(u.UserId, q, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(u.Name,   q, StringComparison.OrdinalIgnoreCase));
+
+                if (found == null)
+                    return Results.NotFound("Tipper nicht gefunden");
+
+                return Results.Json(found, JsonOpts);
+            });
 
             // GET /api/user-template
             app.MapGet("/api/user-template", () =>
