@@ -4,36 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WM 2026 Tippspiel</title>
-<link rel="stylesheet" href="/css/app.css?v=5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/app.css?v=11">
 </head>
 <body>
 
 <!-- ═══ LOGIN OVERLAY ═══════════════════════════════════════════════════ -->
 <div id="login-overlay">
   <div class="login-card">
-    <div class="login-logo">&#127942; WM 2026</div>
-    <div class="login-title">Tippspiel &amp; Bingo</div>
-    <div class="login-sub">Bitte Namen, Tipper-ID oder <strong>Admin</strong> eingeben</div>
-    <form onsubmit="doLogin(event)">
-      <input type="text" id="login-input" class="login-input" placeholder="Name / ID / Admin" autocomplete="off" autofocus>
-      <select id="login-dataset-select" class="login-dataset-select">
-        <option value="vor_turnier">&#128197; Vor dem Turnier</option>
-        <option value="nach_gruppe">&#9917; Nach der Gruppenphase</option>
-        <option value="nach_turnier">&#127942; Nach dem Turnier</option>
-      </select>
-      <button type="submit" class="btn btn-primary login-btn">&#10132; Weiter</button>
-    </form>
-    <div id="login-error" class="login-error" style="display:none;"></div>
+    <div class="login-card-header">
+      <div class="login-logo">&#127942;</div>
+      <div class="login-badge">WM 2026 &bull; Tippspiel</div>
+      <div class="login-title">Willkommen!</div>
+    </div>
+    <div class="login-card-body">
+      <div class="login-sub">Bitte Namen, Tipper-ID oder <strong>Admin</strong> eingeben, um fortzufahren.</div>
+      <form onsubmit="doLogin(event)">
+        <input type="text" id="login-input" class="login-input" placeholder="Name / ID / Admin" autocomplete="off" autofocus>
+        <select id="login-dataset-select" class="login-dataset-select">
+          <option value="vor_turnier">&#128197; Vor dem Turnier</option>
+          <option value="nach_gruppe">&#9917; Nach der Gruppenphase</option>
+          <option value="nach_turnier">&#127942; Nach dem Turnier</option>
+        </select>
+        <button type="submit" class="login-btn">Weiter &rarr;</button>
+      </form>
+      <div id="login-error" class="login-error" style="display:none;"></div>
+    </div>
   </div>
 </div>
 
 <header style="display:none;" id="main-header">
   <span class="logo">&#127942; WM 2026</span>
   <div style="flex:1;">
-    <div style="font-weight:700;font-size:1rem;">Tippspiel &amp; Bingo</div>
+    <div class="header-label">Tippspiel &amp; Bingo</div>
     <div class="sub" id="header-sub">Verwaltung der Tipper &amp; Auswertung</div>
   </div>
-  <button class="btn btn-ghost btn-sm" onclick="doLogout()" style="margin-left:auto;">&#8617; Abmelden</button>
+  <button class="btn btn-ghost btn-sm" onclick="doLogout()" style="margin-left:auto;color:#fff;border-color:rgba(255,255,255,.3);">&#8617; Abmelden</button>
 </header>
 
 <!-- Main navigation (dynamically populated) -->
