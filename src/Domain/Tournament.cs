@@ -10,7 +10,7 @@ namespace TippspielApp.Domain
         public List<string> OccurredBingoEvents { get; set; } = [];
         public string? ActualWorldChampionTeamId { get; set; }
         public string? ActualTopScorerName { get; set; }
-        /// <summary>ISO-Datum des Eröffnungsspiels (z.B. "2026-06-11"). Tipps gesperrt ab einem Tag davor.</summary>
+        // Startdatum des Turniers – wird gebraucht um den Tipp-Schluss zu berechnen (1 Tag davor)
         public string? TournamentStartDate { get; set; }
     }
 

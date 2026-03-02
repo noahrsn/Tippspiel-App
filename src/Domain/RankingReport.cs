@@ -1,20 +1,20 @@
 namespace TippspielApp.Domain
 {
-    /// <summary>Vollständiger Auswertungsbericht – enthält keine Tipp-Rohdaten.</summary>
+    /// <summary>Das fertige Ergebnis einer Ranking-Berechnung – Rangliste, Cluster, Bingo und Finanzübersicht.</summary>
     public class RankingReport
     {
         public DateTime GeneratedAt { get; set; }
-        /// <summary>True sobald der WM-Sieger feststeht und der Haupttopf ausgezahlt wurde.</summary>
+        // Ist der WM-Sieger bekannt? Zeigt ob der Haupttopf schon ausgespielt wurde
         public bool IsMainPotFinalized { get; set; }
         public List<RankingEntry> Leaderboard { get; set; } = [];
         public List<GroupClusterResult> GroupClusterResults { get; set; } = [];
         public List<BingoPotResult> BingoPotResults { get; set; } = [];
-        /// <summary>Alle Preistöpfe mit Status (vergeben / offen).</summary>
+        // Welche Bingo-Töpfe sind vergeben, welche warten noch?
         public List<PotOverviewEntry> BingoPotOverview { get; set; } = [];
         public FinanceSummary FinanceSummary { get; set; } = new();
     }
 
-    /// <summary>Finanzielle Zusammenfassung (dynamisch: Teilnehmer × 9 €).</summary>
+    /// <summary>Finanzübersicht – wie viel wurde schon verteilt und was ist noch offen?</summary>
     public class FinanceSummary
     {
         public decimal TotalPot { get; set; }

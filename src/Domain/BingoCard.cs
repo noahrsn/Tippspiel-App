@@ -1,23 +1,23 @@
 namespace TippspielApp.Domain
 {
     /// <summary>
-    /// Die 4×4-Bingo-Karte eines Users. Kein FREE-Feld – alle 16 Felder sind Ereignisfelder.
+    /// Bingo-Karte mit 4×4 Feldern. Kein Freifeld – alle 16 müssen durch echte WM-Ereignisse abgedeckt werden.
     /// </summary>
     public class BingoCard
     {
-        /// <summary>16 Felder (Positionen 0–15, zeilenweise von links oben).</summary>
+        // Positionen 0–15 von links oben, zeilenweise
         public List<BingoCell> Cells { get; set; } = [];
     }
 
-    /// <summary>Ein einzelnes Feld auf der Bingo-Karte.</summary>
+    /// <summary>Ein einzelnes Bingo-Feld – Position, zugehöriges Ereignis und ob es schon eingetreten ist.</summary>
     public class BingoCell
     {
-        /// <summary>Position im 4×4-Raster (0–15).</summary>
+        // 0 = oben links, 15 = unten rechts
         public int Position { get; set; }
-        /// <summary>ID des Ereignisses aus dem Bingo-Katalog.</summary>
+        // Verweist auf ein Ereignis im BingoEventCatalog der TournamentData
         public string EventId { get; set; } = string.Empty;
         public bool IsFulfilled { get; set; }
-        /// <summary>Zeitpunkt, zu dem das Ereignis eingetreten ist (UTC).</summary>
+        // Wann das Feld erfüllt wurde – null bedeutet, es ist noch offen
         public DateTime? FulfilledAt { get; set; }
     }
 }

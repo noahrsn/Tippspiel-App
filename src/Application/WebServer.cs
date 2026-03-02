@@ -9,8 +9,8 @@ using TippspielApp.Infrastructure;
 namespace TippspielApp.Application
 {
     /// <summary>
-    /// Konfiguriert und startet den ASP.NET Minimal-API-Webserver.
-    /// Bündelt alle HTTP-Routen an einem Ort.
+    /// Startet den Webserver und registriert alle API-Routen.
+    /// Alle Endpoints zentral in RegisterRoutes() – kein Controller-Overhead.
     /// </summary>
     public static class WebServer
     {
@@ -63,6 +63,8 @@ namespace TippspielApp.Application
             string tourneyPath,
             string rankingPath)
         {
+            var store = new JsonDataStore();
+
             // GET /api/tournament?dataset=vor_turnier|nach_gruppe|nach_turnier
             app.MapGet("/api/tournament", (HttpContext ctx) =>
             {
@@ -94,8 +96,7 @@ namespace TippspielApp.Application
                 if (string.IsNullOrEmpty(q))
                     return Results.BadRequest("Parameter 'q' fehlt");
 
-                var allUsers = JsonSerializer.Deserialize<List<User>>(
-                    File.ReadAllText(usersPath, System.Text.Encoding.UTF8), JsonOpts) ?? [];
+                var allUsers = store.LoadUsers(usersPath);
 
                 var found = allUsers.FirstOrDefault(u =>
                     string.Equals(u.UserId, q, StringComparison.OrdinalIgnoreCase) ||
@@ -152,7 +153,6 @@ namespace TippspielApp.Application
                 if (!File.Exists(tdPath))
                     return Results.NotFound($"Datensatz '{datasetKey}' nicht gefunden.");
 
-                var store  = new JsonDataStore();
                 var users  = store.LoadUsers(usersPath);
                 var td     = store.LoadTournamentData(tdPath);
                 var report = new RankingCalculator().Run(users, td);
@@ -167,8 +167,7 @@ namespace TippspielApp.Application
                 var newUser   = JsonSerializer.Deserialize<User>(body, JsonOpts);
                 if (newUser == null) return Results.BadRequest("Ungueltige User-Daten");
 
-                var users = JsonSerializer.Deserialize<List<User>>(
-                    File.ReadAllText(usersPath, System.Text.Encoding.UTF8), JsonOpts) ?? [];
+                var users = store.LoadUsers(usersPath);
 
                 if (string.IsNullOrWhiteSpace(newUser.UserId))
                     newUser.UserId = "USR-" + (users.Count + 1).ToString("D3");
@@ -177,7 +176,7 @@ namespace TippspielApp.Application
                     return Results.Conflict($"User-ID {newUser.UserId} existiert bereits");
 
                 users.Add(newUser);
-                File.WriteAllText(usersPath, JsonSerializer.Serialize(users, JsonOpts), System.Text.Encoding.UTF8);
+                store.SaveUsers(users, usersPath);
                 return Results.Created("/api/users/" + newUser.UserId, newUser);
             });
 
@@ -188,25 +187,23 @@ namespace TippspielApp.Application
                 var updated   = JsonSerializer.Deserialize<User>(body, JsonOpts);
                 if (updated == null) return Results.BadRequest("Ungueltige User-Daten");
 
-                var users = JsonSerializer.Deserialize<List<User>>(
-                    File.ReadAllText(usersPath, System.Text.Encoding.UTF8), JsonOpts) ?? [];
+                var users = store.LoadUsers(usersPath);
                 int idx = users.FindIndex(u => u.UserId == id);
                 if (idx < 0) return Results.NotFound($"User {id} nicht gefunden");
 
                 updated.UserId = id;
                 users[idx] = updated;
-                File.WriteAllText(usersPath, JsonSerializer.Serialize(users, JsonOpts), System.Text.Encoding.UTF8);
+                store.SaveUsers(users, usersPath);
                 return Results.Ok(updated);
             });
 
             // DELETE /api/users/{id}
             app.MapDelete("/api/users/{id}", (string id) =>
             {
-                var users = JsonSerializer.Deserialize<List<User>>(
-                    File.ReadAllText(usersPath, System.Text.Encoding.UTF8), JsonOpts) ?? [];
+                var users = store.LoadUsers(usersPath);
                 int removed = users.RemoveAll(u => u.UserId == id);
                 if (removed == 0) return Results.NotFound($"User {id} nicht gefunden");
-                File.WriteAllText(usersPath, JsonSerializer.Serialize(users, JsonOpts), System.Text.Encoding.UTF8);
+                store.SaveUsers(users, usersPath);
                 return Results.Ok($"User {id} geloescht");
             });
         }

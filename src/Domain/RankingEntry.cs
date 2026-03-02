@@ -1,8 +1,8 @@
 namespace TippspielApp.Domain
 {
     /// <summary>
-    /// Schlanker Ranglisten-Eintrag ohne Tipp-Rohdaten.
-    /// Erbt alle Punktefelder direkt von ScoreSnapshot.
+    /// Was im Ranking nach außen sichtbar ist – Platz, Name und alle Punktwerte, aber keine Tipp-Rohdaten.
+    /// Erbt den Punktestand direkt von ScoreSnapshot.
     /// </summary>
     public class RankingEntry : ScoreSnapshot
     {

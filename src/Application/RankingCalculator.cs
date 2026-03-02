@@ -5,13 +5,12 @@ using TippspielApp.Scoring;
 namespace TippspielApp.Application
 {
     /// <summary>
-    /// Orchestriert die vollständige Auswertung: Punkte → Sortierung → Finanzen → Report.
-    /// Iteriert die IEvaluator-Liste, damit neue Bewertungsregeln einfach ergänzt werden können.
+    /// Führt die komplette Ranglisten-Berechnung durch: erst Punkte, dann sortieren, dann Finanzen.
+    /// Neue Evaluatoren können einfach zur Liste hinzugefügt werden ohne den Rest zu verändern.
     /// </summary>
     public class RankingCalculator
     {
-        // Reihenfolge ist wichtig: ClassicEvaluator setzt ClassicPoints,
-        // SpecialBetEvaluator addiert dann darauf.
+        // Wichtig: ClassicEvaluator muss vor SpecialBetEvaluator laufen, weil der daraufaddiert
         private readonly List<IEvaluator> _evaluators =
         [
             new ClassicEvaluator(),
@@ -26,26 +25,26 @@ namespace TippspielApp.Application
 
         public RankingReport Run(List<User> users, TournamentData data)
         {
-            // 1. Punktestand zurücksetzen
+            // Alten Punktestand wegwerfen, frisch anfangen
             foreach (var user in users)
                 user.CurrentScore = new ScoreSnapshot();
 
-            // 2. Punkte berechnen (alle Kategorien)
+            // Jeden Evaluator auf jeden Tipper anwenden
             foreach (var evaluator in _evaluators)
                 foreach (var user in users)
                     evaluator.Evaluate(user, data);
 
-            // 3. Gesamtpunkte aggregieren
+            // Gesamtpunkte = Classic + Knockout + Bingo
             foreach (var user in users)
                 user.CurrentScore.TotalPoints =
                     user.CurrentScore.ClassicPoints +
                     user.CurrentScore.KnockoutPoints +
                     user.CurrentScore.BingoPoints;
 
-            // 4. Sortieren
+            // Erst nach Punkten sortieren
             Sort(users);
 
-            // 5. Finanzen berechnen
+            // Preisgeld verteilen – erst Cluster, dann Bingo, ggf. Haupttopf
             var clusterResults = _cluster.Calculate(users, data);
             var bingoResults   = _bingo.Calculate(users);
             var finalResults   = new List<BingoPotResult>();
@@ -53,10 +52,10 @@ namespace TippspielApp.Application
             if (!string.IsNullOrEmpty(data.ActualWorldChampionTeamId))
                 finalResults = _mainPot.Calculate(users);
 
-            // 6. Nach Preisgeld-Update nochmals sortieren (Punkte unverändert)
+            // Nochmal sortieren (Punkte haben sich nicht geändert, aber sauber so)
             Sort(users);
 
-            // 7. Rangliste aufbauen (RankingEntry erbt alle Felder von ScoreSnapshot)
+            // RankingEntry ohne Tipp-Rohdaten erzeugen
             var leaderboard = users.Select((u, i) => new RankingEntry
             {
                 Rank                   = i + 1,
@@ -72,7 +71,7 @@ namespace TippspielApp.Application
                 WonPots                = u.CurrentScore.WonPots
             }).ToList();
 
-            // 8. Topf-Übersicht (vergeben / offen)
+            // Welche Töpfe sind schon vergeben, welche stehen noch aus?
             bool isFinalized = !string.IsNullOrEmpty(data.ActualWorldChampionTeamId);
             var  allAwarded  = bingoResults.Concat(finalResults).ToList();
             var  prizeSlots  = BingoDistributor.GetPrizeSlots(users.Count);
@@ -91,16 +90,18 @@ namespace TippspielApp.Application
                 };
             }).ToList();
 
-            // 9. Nicht vergebene Töpfe für FinanceSummary
+            // Für die Finanzübersicht: alle noch offenen Töpfe auflisten
             var unclaimed = potOverview
-                .Where(e => !e.IsAwarded)
+                .Where(e => !e.IsAwarded)             // nur noch nicht vergebene Töpfe
                 .Select(e => $"{e.PotLabel} ({e.Prize:F0} EUR)")
                 .ToList();
 
+            // Wenn Turnier noch läuft, Haupttopf explizit als ausstehend markieren
             if (!isFinalized)
                 unclaimed.Add($"Gesamtwertung Haupttopf – {PotMath.MainPot(users.Count):F0} EUR (erst nach Turnierende)");
 
             decimal total       = PotMath.TotalPot(users.Count);
+            // ausgeschüttetes Preisgeld – über alle Tipper im Leaderboard aufsummieren
             decimal distributed = leaderboard.Sum(e => e.TotalFinancialWinnings);
 
             return new RankingReport
@@ -125,12 +126,16 @@ namespace TippspielApp.Application
         {
             users.Sort((a, b) =>
             {
+                // 1. Kriterium: wer hat mehr Gesamtpunkte?
                 int cmp = b.CurrentScore.TotalPoints.CompareTo(a.CurrentScore.TotalPoints);
                 if (cmp != 0) return cmp;
+                // 2. Kriterium bei Gleichstand: wer hat mehr KO-Punkte?
                 cmp = b.CurrentScore.KnockoutPoints.CompareTo(a.CurrentScore.KnockoutPoints);
                 if (cmp != 0) return cmp;
+                // 3. Kriterium: wer hat mehr Bingo-Felder erfüllt?
                 cmp = b.CurrentScore.FulfilledBingoCells.CompareTo(a.CurrentScore.FulfilledBingoCells);
                 if (cmp != 0) return cmp;
+                // 4. Kriterium: alphabetische UserId – deterministisch, damit Tests nicht flúckern
                 return string.Compare(a.UserId, b.UserId, StringComparison.Ordinal);
             });
         }

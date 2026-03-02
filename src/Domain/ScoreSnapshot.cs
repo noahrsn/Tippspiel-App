@@ -1,8 +1,8 @@
 namespace TippspielApp.Domain
 {
     /// <summary>
-    /// Basisklasse für den Punktestand eines Users.
-    /// Wird von RankingEntry geerbt, sodass alle Felder direkt im Ranglisten-Eintrag verfügbar sind.
+    /// Speichert den aktuellen Punktestand eines Teilnehmers.
+    /// RankingEntry erbt diese Klasse, damit man im Ranking nicht extra alles mappen muss.
     /// </summary>
     public class ScoreSnapshot
     {

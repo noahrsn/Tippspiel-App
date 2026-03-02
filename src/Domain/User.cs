@@ -1,6 +1,6 @@
 namespace TippspielApp.Domain
 {
-    /// <summary>Repräsentiert einen Teilnehmer mit seinen Tipps und seinem aktuellen Punktestand.</summary>
+    /// <summary>Ein Teilnehmer – enthält Name/ID, seine Tipps und den laufenden Punktestand.</summary>
     public class User
     {
         public string UserId { get; set; } = string.Empty;
@@ -9,7 +9,7 @@ namespace TippspielApp.Domain
         public ScoreSnapshot CurrentScore { get; set; } = new();
     }
 
-    /// <summary>Enthält alle Tipps eines Users: Spieltipps, KO-Runden, Sondertipps und Bingo-Karte.</summary>
+    /// <summary>Alle Tippdaten eines Users zusammengefasst – Gruppenspiele, KO-Runden, Sondertipps und Bingo-Karte.</summary>
     public class UserBet
     {
         public List<MatchBet> GroupMatchBets { get; set; } = [];
@@ -19,7 +19,7 @@ namespace TippspielApp.Domain
         public BingoCard? BingoCard { get; set; }
     }
 
-    /// <summary>Tipp für ein einzelnes Gruppenspiel.</summary>
+    /// <summary>Tipp für ein einzelnes Spiel – Heim- und Auswärtstore reichen aus.</summary>
     public class MatchBet
     {
         public string MatchId { get; set; } = string.Empty;
@@ -27,7 +27,7 @@ namespace TippspielApp.Domain
         public int AwayGoals { get; set; }
     }
 
-    /// <summary>Sondertipps: Weltmeister-Team (20 Pkt) und Torschützenkönig (20 Pkt).</summary>
+    /// <summary>Die zwei Sondertipps – Weltmeister und Torschützenkönig. Jeder richtige Tipp bringt 20 Punkte.</summary>
     public class SpecialBet
     {
         public string? WorldChampionTeamId { get; set; }

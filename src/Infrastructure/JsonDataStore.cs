@@ -4,8 +4,8 @@ using TippspielApp.Domain;
 namespace TippspielApp.Infrastructure
 {
     /// <summary>
-    /// Verantwortlich für alle JSON-Datei-Operationen: Lesen und Schreiben.
-    /// Kapselt System.Text.Json-Konfiguration an einem Ort.
+    /// Kümmert sich um alles rund ums Lesen und Schreiben der JSON-Dateien.
+    /// Die Serializer-Optionen sind einmal hier definiert und werden überall genutzt.
     /// </summary>
     public class JsonDataStore
     {
@@ -15,17 +15,18 @@ namespace TippspielApp.Infrastructure
             WriteIndented               = true
         };
 
-        /// <summary>Lädt alle User-Tipps aus einer JSON-Datei.</summary>
+        /// <summary>Liest die komplette User-Liste aus der JSON-Datei – wirft Exception wenn die Datei fehlt.</summary>
         public List<User> LoadUsers(string filePath)
         {
             if (!File.Exists(filePath))
                 throw new FileNotFoundException($"users.json nicht gefunden: {filePath}");
 
+            // ?? throw: Deserialize gibt null zurück wenn das JSON leer oder ungültig ist
             return JsonSerializer.Deserialize<List<User>>(File.ReadAllText(filePath), Options)
                    ?? throw new InvalidDataException("users.json konnte nicht deserialisiert werden.");
         }
 
-        /// <summary>Lädt die aktuellen Turnierdaten aus einer JSON-Datei.</summary>
+        /// <summary>Liest die Turnierdaten ein – MatchResults, Bingo-Events, KO-Teams, usw.</summary>
         public TournamentData LoadTournamentData(string filePath)
         {
             if (!File.Exists(filePath))
@@ -35,10 +36,17 @@ namespace TippspielApp.Infrastructure
                    ?? throw new InvalidDataException("tournament_data.json konnte nicht deserialisiert werden.");
         }
 
-        /// <summary>Exportiert das berechnete Ranking als JSON-Datei.</summary>
+        // Schreibt die aktuelle User-Liste zurück – überschreibt die Datei komplett
+        public void SaveUsers(List<User> users, string filePath)
+        {
+            File.WriteAllText(filePath, JsonSerializer.Serialize(users, Options), System.Text.Encoding.UTF8);
+        }
+
+        /// <summary>Speichert den fertigen Report als JSON – legt das Output-Verzeichnis an falls nötig.</summary>
         public void ExportRanking(RankingReport report, string filePath)
         {
             string? dir = Path.GetDirectoryName(filePath);
+            // CreateDirectory macht nichts wenn der Ordner schon existiert – kein Extra-Check nötig
             if (!string.IsNullOrEmpty(dir))
                 Directory.CreateDirectory(dir);
 

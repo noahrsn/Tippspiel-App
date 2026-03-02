@@ -2,7 +2,7 @@ using TippspielApp.Domain;
 
 namespace TippspielApp.Scoring
 {
-    /// <summary>Gemeinsame Schnittstelle für alle Punkt-Evaluatoren.</summary>
+    /// <summary>Interface für alle Evaluatoren – jeder muss Evaluate() implementieren.</summary>
     public interface IEvaluator
     {
         void Evaluate(User user, TournamentData data);

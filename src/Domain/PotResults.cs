@@ -1,6 +1,6 @@
 namespace TippspielApp.Domain
 {
-    /// <summary>Ergebnis eines Gruppen-Cluster-Zwischengewinns (je zwei Gruppen).</summary>
+    /// <summary>Ergebnis für einen der sechs Gruppen-Cluster (z.B. A+B) – wer hat gewonnen und wie viel bekommt er?</summary>
     public class GroupClusterResult
     {
         public string ClusterLabel { get; set; } = string.Empty;
@@ -12,7 +12,7 @@ namespace TippspielApp.Domain
         public List<string> CoWinners { get; set; } = [];
     }
 
-    /// <summary>Ergebnis eines ausgezahlten Preisgelds (Bingo-Topf oder Gesamtwertungsplatz).</summary>
+    /// <summary>Wird für Bingo-Gewinne und Gesamtwertungs-Plätze gleichermaßen genutzt – einfach Label, Gewinner und Betrag.</summary>
     public class BingoPotResult
     {
         public string PotLabel { get; set; } = string.Empty;
@@ -21,7 +21,7 @@ namespace TippspielApp.Domain
         public decimal Prize { get; set; }
     }
 
-    /// <summary>Übersichts-Eintrag für einen Topf: vergeben oder noch offen.</summary>
+    /// <summary>Zeigt an ob ein Preistopf schon vergeben wurde oder noch aussteht.</summary>
     public class PotOverviewEntry
     {
         public string PotLabel { get; set; } = string.Empty;
