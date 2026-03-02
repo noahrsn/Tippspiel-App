@@ -1010,8 +1010,8 @@ function renderRanking() {
       <td>${e.ClassicPoints} Pkt</td>
       <td>${e.KnockoutPoints} Pkt</td>
       <td>${e.BingoPoints} Pkt</td>
-      <td>${e.FulfilledBingoCells} / 25</td>
-      <td>${e.CompletedBingoLines} / 12</td>
+      <td>${e.FulfilledBingoCells} / 16</td>
+      <td>${e.CompletedBingoLines} / 10</td>
       <td><strong style="color:var(--success)">${e.TotalFinancialWinnings.toLocaleString('de-DE')} &euro;</strong></td>
       <td style="font-size:.78rem;">${pots}</td>
     </tr>`;
